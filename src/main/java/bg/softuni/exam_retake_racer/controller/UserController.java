@@ -25,7 +25,7 @@ public class UserController {
 
     // Register the user
     @PostMapping("/register")
-    public ResponseEntity<UserDTO> register(UserRegisterBindingModel userRegisterBindingModel) {
+    public ResponseEntity<UserDTO> register(@RequestBody UserRegisterBindingModel userRegisterBindingModel) {
         try {
             UserDTO userDTO = userService.register(userRegisterBindingModel);
             return ResponseEntity.status(HttpStatus.CREATED).body(userDTO);

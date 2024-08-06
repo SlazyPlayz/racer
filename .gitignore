@@ -35,3 +35,26 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### JavaScript ###
+# dependencies
+/racer-fe/node_modules
+/racer-fe/.pnp
+/racer-fe/.pnp.js
+
+# testing
+/racer-fe/coverage
+
+# production
+/racer-fe/build
+
+# misc
+/racer-fe/.DS_Store
+/racer-fe/.env.local
+/racer-fe/.env.development.local
+/racer-fe/.env.test.local
+/racer-fe/.env.production.local
+
+/racer-fe/npm-debug.log*
+/racer-fe/yarn-debug.log*
+/racer-fe/yarn-error.log*
