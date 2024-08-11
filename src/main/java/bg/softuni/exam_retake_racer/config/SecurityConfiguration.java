@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
@@ -21,8 +22,10 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
-                .csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer
-                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
+                .csrf(AbstractHttpConfigurer::disable)
+                // TODO: change csrf authorization
+//                .csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer
+//                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .authorizeHttpRequests(
                         // Define which URLs are visible by which users
                         authorizeRequests -> authorizeRequests
@@ -44,7 +47,7 @@ public class SecurityConfiguration {
                                 .passwordParameter("password")
                                 .defaultSuccessUrl("/")
                                 .failureForwardUrl("/users/login-error")
-                                .successHandler(customLoginSuccessHandler())
+//                                .successHandler(customLoginSuccessHandler())
                 ).logout(
                         logout -> logout
                                 // the URL where we should POST something in order to perform the logout
