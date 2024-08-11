@@ -4,8 +4,10 @@ import bg.softuni.exam_retake_racer.model.enums.Role;
 import bg.softuni.exam_retake_racer.repository.UserRepository;
 import bg.softuni.exam_retake_racer.service.impl.RacerUserDetailsServiceImpl;
 import bg.softuni.exam_retake_racer.util.CustomLoginSuccessHandler;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -14,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
 @Configuration
 @EnableMethodSecurity
@@ -22,16 +25,20 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
-                .csrf(AbstractHttpConfigurer::disable)
-                // TODO: change csrf authorization
-//                .csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer
-//                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
+                .cors(Customizer.withDefaults())
+                .csrf(httpSecurityCsrfConfigurer -> {
+                    HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
+                    repository.setSessionAttributeName("_csrf");
+                    httpSecurityCsrfConfigurer.csrfTokenRepository(repository);
+                })
                 .authorizeHttpRequests(
                         // Define which URLs are visible by which users
                         authorizeRequests -> authorizeRequests
+                                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                                 // Allow anyone to see the home page, registration page and login form
                                 .requestMatchers("/").permitAll()
                                 .requestMatchers("/users/login", "/users/register").permitAll()
+                                .requestMatchers("/users/profile").authenticated()
                                 .requestMatchers("/races").permitAll()
                                 .requestMatchers("/tracks").permitAll()
                                 .requestMatchers("/users").hasRole(Role.ADMIN.name())
@@ -70,8 +77,8 @@ public class SecurityConfiguration {
         return Pbkdf2PasswordEncoder.defaultsForSpringSecurity_v5_8();
     }
 
-    @Bean
-    public CustomLoginSuccessHandler customLoginSuccessHandler() {
-        return new CustomLoginSuccessHandler();
-    }
+//    @Bean
+//    public CustomLoginSuccessHandler customLoginSuccessHandler() {
+//        return new CustomLoginSuccessHandler();
+//    }
 }

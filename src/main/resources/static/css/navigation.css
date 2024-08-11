@@ -1,0 +1,17 @@
+header {
+    background: #0099ff;
+    height: 3em;
+    font-size: 1.25em;
+}
+
+nav {
+    height: 100%;
+}
+
+nav ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+}

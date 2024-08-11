@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/defaults.css}">
+    <link rel="stylesheet" th:href="@{/css/profile.css}">
+</head>
+<body>
+
+<main>
+    <div class='user-container' th:object="${user}">
+        <div class='user-info'>
+            <img
+                    src='https://www.pngall.com/wp-content/uploads/5/Profile-PNG-File.png'
+                    alt='Profile'
+                    class='profile-img'
+            />
+            <div class='user-data'>
+                <h2 class='full-name' th:text="|${user.firstName} ${user.lastName}|">Full Name</h2>
+                <p class='username' th:text="${user.username}">@username</p>
+                <div class='races-container'>
+                    <div class='races-data'>
+                        <p class='race-info'>Best Placement</p>
+                        <p class='race-data'>4th</p>
+                    </div>
+                    <div class='races-data'>
+                        <p class='race-info'>Total Races</p>
+                        <p class='race-data'>27</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class='about'>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vel at
+        tenetur, dolorem minus commodi repellendus nulla blanditiis
+        libero porro ipsam.
+    </p>
+</main>
+</body>
+</html>

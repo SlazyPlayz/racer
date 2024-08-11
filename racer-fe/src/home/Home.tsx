@@ -1,23 +1,24 @@
-import React, {JSX, useState} from 'react';
+import React, { JSX, useState } from 'react';
 import './home.css';
 
 function Home() {
+	// const [upcomingRaces, setUpcomingRaces] = useState<UpcomingRace[]>([]);
 
-    // const [upcomingRaces, setUpcomingRaces] = useState<UpcomingRace[]>([]);
-
-    return (
-        <main>
-			<LastRace />
-			<LastRaceLeaderboard />
-            <UpcomingRaces/>
-        </main>
-    );
+	return (
+		<main>
+			<div className='home-container'>
+				<LastRace />
+				<LastRaceLeaderboard />
+				<UpcomingRaces />
+			</div>
+		</main>
+	);
 }
 
 interface UpcomingRace {
-    title: string;
-    location: string;
-    organizer: string;
+	title: string;
+	location: string;
+	organizer: string;
 }
 
 function LastRace(): JSX.Element {
@@ -38,34 +39,45 @@ function LastRaceLeaderboard(): JSX.Element {
 			<article>This is a test</article>
 			<article>This is a test</article>
 			<article>This is a test</article>
-            <article>This is a test</article>
-            <article>This is a test</article>
-        </section>
-    );
+			<article>This is a test</article>
+			<article>This is a test</article>
+		</section>
+	);
 }
 
 function UpcomingRaces(): JSX.Element {
-
 	const Title = (): JSX.Element => {
-		return <h3>Upcoming Races</h3>
-	}
+		return <h3>Upcoming Races</h3>;
+	};
 
-	const Race = ({title, location, organizer}: UpcomingRace): JSX.Element => {
-		return <article>
-			<h6>{title} <span>({location})</span></h6>
-			<p>{organizer}</p>
-		</article>
-	}
+	const Race = ({
+		title,
+		location,
+		organizer,
+	}: UpcomingRace): JSX.Element => {
+		return (
+			<article>
+				<h6>
+					{title} <span>({location})</span>
+				</h6>
+				<p>{organizer}</p>
+			</article>
+		);
+	};
 
-    return (
-        <section className='upcoming-races'>
+	return (
+		<section className='upcoming-races'>
 			<Title />
-			<Race title={'Milano Qualifications'} location={'Milan'} organizer={'Milano Race Association'} />
-            <article>This is another test</article>
-            <article>This is another test</article>
-            <article>This is another test</article>
-            <article>This is another test</article>
-        </section>
+			<Race
+				title={'Milano Qualifications'}
+				location={'Milan'}
+				organizer={'Milano Race Association'}
+			/>
+			<article>This is another test</article>
+			<article>This is another test</article>
+			<article>This is another test</article>
+			<article>This is another test</article>
+		</section>
 	);
 }
 

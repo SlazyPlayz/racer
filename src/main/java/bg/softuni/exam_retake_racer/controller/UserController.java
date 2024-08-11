@@ -1,17 +1,18 @@
 package bg.softuni.exam_retake_racer.controller;
 
-import bg.softuni.exam_retake_racer.exceptions.InvalidInputException;
-import bg.softuni.exam_retake_racer.exceptions.UserAlreadyExistsException;
-import bg.softuni.exam_retake_racer.model.dto.UserDTO;
+import bg.softuni.exam_retake_racer.model.dto.UserLoginBindingModel;
 import bg.softuni.exam_retake_racer.model.dto.UserRegisterBindingModel;
 import bg.softuni.exam_retake_racer.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-@RestController
+@Controller
 @RequestMapping("/users")
 public class UserController {
 
@@ -23,19 +24,33 @@ public class UserController {
         this.logger = LoggerFactory.getLogger(UserController.class);
     }
 
+    @GetMapping("/login")
+    public ModelAndView login() {
+        ModelAndView modelAndView = new ModelAndView("login");
+        modelAndView.addObject("userLoginBindingModel", UserLoginBindingModel.empty());
+        return modelAndView;
+    }
+
+    @GetMapping("/register")
+    public ModelAndView register() {
+        ModelAndView modelAndView = new ModelAndView("register");
+        modelAndView.addObject("userRegisterBindingModel", UserRegisterBindingModel.empty());
+        return modelAndView;
+    }
+
     // Register the user
     @PostMapping("/register")
-    public ResponseEntity<UserDTO> register(@RequestBody UserRegisterBindingModel userRegisterBindingModel) {
-        try {
-            UserDTO userDTO = userService.register(userRegisterBindingModel);
-            return ResponseEntity.status(HttpStatus.CREATED).body(userDTO);
-        } catch (UserAlreadyExistsException e) {
-            logger.error("User registration failed - user already exists", e);
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        } catch (InvalidInputException e) {
-            logger.error("User registration failed - invalid input", e);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build(); // 400 Bad Request for invalid input
-        }
+    public ModelAndView register(UserRegisterBindingModel userRegisterBindingModel) {
+        userService.register(userRegisterBindingModel);
+
+        return new ModelAndView("redirect:/users/login");
+    }
+
+    @GetMapping("/profile")
+    public ModelAndView profile() throws Exception {
+        ModelAndView modelAndView = new ModelAndView("profile");
+        modelAndView.addObject("user", userService.getUser());
+        return modelAndView;
     }
 
     //Catch additional exceptions

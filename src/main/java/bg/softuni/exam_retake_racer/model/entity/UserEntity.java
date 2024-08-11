@@ -12,10 +12,15 @@ import java.util.Set;
 @Table(name = "users")
 public class UserEntity extends BaseEntity {
 
-    @Column(name = "full_name")
+    @Column(name = "first_name")
     @NotNull
     @Size(min = 3, max = 24)
-    private String fullName;
+    private String firstName;
+
+    @Column(name = "last_name")
+    @NotNull
+    @Size(min = 3, max = 24)
+    private String lastName;
 
     @Column(name = "username")
     @NotNull
@@ -40,24 +45,24 @@ public class UserEntity extends BaseEntity {
     )
     private Set<RoleEntity> roles;
 
-    public UserEntity(String fullName, String username, String email, String password, Set<RoleEntity> roles) {
-        super();
-        this.fullName = fullName;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.roles = roles;
-    }
-
     public UserEntity() {
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public UserEntity setFullName(String fullName) {
-        this.fullName = fullName;
+    public UserEntity setFirstName(String firstName) {
+        this.firstName = firstName;
+        return this;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public UserEntity setLastName(String lastName) {
+        this.lastName = lastName;
         return this;
     }
 
