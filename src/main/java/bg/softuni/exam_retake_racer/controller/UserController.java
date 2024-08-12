@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,14 +25,14 @@ public class UserController {
 
     @GetMapping("/login")
     public ModelAndView login() {
-        ModelAndView modelAndView = new ModelAndView("login");
+        ModelAndView modelAndView = new ModelAndView("/users/login");
         modelAndView.addObject("userLoginBindingModel", UserLoginBindingModel.empty());
         return modelAndView;
     }
 
     @GetMapping("/register")
     public ModelAndView register() {
-        ModelAndView modelAndView = new ModelAndView("register");
+        ModelAndView modelAndView = new ModelAndView("/users/register");
         modelAndView.addObject("userRegisterBindingModel", UserRegisterBindingModel.empty());
         return modelAndView;
     }
@@ -48,7 +47,7 @@ public class UserController {
 
     @GetMapping("/profile")
     public ModelAndView profile() throws Exception {
-        ModelAndView modelAndView = new ModelAndView("profile");
+        ModelAndView modelAndView = new ModelAndView("/users/profile");
         modelAndView.addObject("user", userService.getUser());
         return modelAndView;
     }

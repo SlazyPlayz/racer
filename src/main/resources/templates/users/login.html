@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" th:href="@{/css/defaults.css}">
+    <link rel="stylesheet" th:href="@{/css/user-input.css}">
+    <link rel="icon" type="image/png" href="https://img.icons8.com/ios-filled/100/tony-kart.png" />
+</head>
+<body>
+    <header th:insert="~{/util/navigation}"></header>
+
+    <div class='input-container'>
+        <form
+                th:method="post"
+                th:action="@{/users/login}"
+                th:object="${userLoginBindingModel}"
+                id='login-form'
+                class='input-form'
+        >
+            <div class='input-field'>
+                <label for='username'>Username</label>
+                <input
+                        id='username'
+                        name="username"
+                        th:field="*{username}"
+                        placeholder='Enter your username'
+                />
+            </div>
+            <div class='input-field'>
+                <label for='password'>Password</label>
+                <input
+                        id='password'
+                        name="password"
+                        th:field="*{password}"
+                        type="password"
+                        placeholder='Enter your password'
+                />
+            </div>
+            <button type='submit'>Register</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -8,13 +8,8 @@ import bg.softuni.exam_retake_racer.model.entity.UserEntity;
 import bg.softuni.exam_retake_racer.repository.UserRepository;
 import bg.softuni.exam_retake_racer.service.UserService;
 import bg.softuni.exam_retake_racer.util.AuthenticationFacade;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -49,7 +44,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO getUser() throws Exception {
+    public UserDTO getUser() {
 
         String username = authenticationFacade.getAuthentication().getName();
 

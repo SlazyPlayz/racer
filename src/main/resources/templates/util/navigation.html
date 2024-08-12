@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Navigation</title>
+    <link rel="stylesheet" th:href="@{/css/navigation.css}">
+</head>
+<body>
+
+    <header>
+        <nav th:fragment="~{navigation}">
+            <ul>
+                <li>
+                    <a href='/'>Home</a>
+                </li>
+                <li>
+                    <a href='/races'>All Races</a>
+                </li>
+                <li>
+                    <a href='/races/search'>Search Race</a>
+                </li>
+                <li>
+                    <a href='/races/leaderboard'>Leaderboard</a>
+                </li>
+                <li sec:authorize="isAuthenticated()">
+                    <a href='/users/profile'>Profile</a>
+                </li>
+                <li sec:authorize="!isAuthenticated()">
+                    <a href='/users/register'>Register</a>
+                </li>
+                <li sec:authorize="!isAuthenticated()">
+                    <a href='/users/login'>Login</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+</body>
+</html>

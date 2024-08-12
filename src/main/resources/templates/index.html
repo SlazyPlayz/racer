@@ -5,41 +5,41 @@
     <title>Racer</title>
     <link rel="stylesheet" th:href="@{/css/defaults.css}">
     <link rel="stylesheet" th:href="@{/css/index.css}">
+    <link rel="icon" type="image/png" href="https://img.icons8.com/ios-filled/100/tony-kart.png" />
 </head>
 <body>
+    <header th:insert="~{/util/navigation}"></header>
 
-<header th:insert="navigation"></header>
-
-<main>
-    <div class='home-container'>
-        <section class='last-race'>
-            <img
-                    src='https://c.stocksy.com/a/ej9A00/z9/2420706.jpg'
-                    alt='Race Track'
-                    class='last-race-img'
-            />
-        </section>
-        <section class='last-race-leaderboard'>
-            <article>This is a test</article>
-            <article>This is a test</article>
-            <article>This is a test</article>
-            <article>This is a test</article>
-            <article>This is a test</article>
-        </section>
-        <section class='upcoming-races'>
-            <h3>Upcoming Races</h3>
-            <article>
-                <h6>
-                    Milano Qualifications <span>(Milan)</span>
-                </h6>
-                <p>Milano Race Association</p>
-            </article>
-            <article>This is another test</article>
-            <article>This is another test</article>
-            <article>This is another test</article>
-            <article>This is another test</article>
-        </section>
-    </div>
-</main>
+    <main>
+        <div class='home-container'>
+            <section class='last-race'>
+                <img
+                        src='https://c.stocksy.com/a/ej9A00/z9/2420706.jpg'
+                        alt='Race Track'
+                        class='last-race-img'
+                />
+            </section>
+            <section class='last-race-leaderboard'>
+                <article>This is a test</article>
+                <article>This is a test</article>
+                <article>This is a test</article>
+                <article>This is a test</article>
+                <article>This is a test</article>
+            </section>
+            <section class='upcoming-races'>
+                <h3>Upcoming Races</h3>
+                <article>
+                    <h6>
+                        Milano Qualifications <span>(Milan)</span>
+                    </h6>
+                    <p>Milano Race Association</p>
+                </article>
+                <article>This is another test</article>
+                <article>This is another test</article>
+                <article>This is another test</article>
+                <article>This is another test</article>
+            </section>
+        </div>
+    </main>
 </body>
 </html>
