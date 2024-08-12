@@ -1,5 +1,6 @@
 package bg.softuni.exam_retake_racer.model.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 
@@ -9,6 +10,7 @@ import java.util.UUID;
 public class BaseEntity {
 
     @Id
+    @Column(name = "uuid", updatable = false, nullable = false)
     private UUID uuid;
 
     public UUID getUuid() {

@@ -1,6 +1,6 @@
-package bg.softuni.exam_retake_racer.model.entity;
+package bg.softuni.exam_retake_racer.model.entity.user;
 
-import bg.softuni.exam_retake_racer.model.enums.Role;
+import bg.softuni.exam_retake_racer.model.entity.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -36,6 +36,10 @@ public class UserEntity extends BaseEntity {
     @Column(name = "password")
     @NotNull
     private String password;
+
+    @Column(name = "bio")
+    @NotNull
+    private String bio;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -99,6 +103,15 @@ public class UserEntity extends BaseEntity {
 
     public UserEntity setRoles(Set<RoleEntity> roles) {
         this.roles = roles;
+        return this;
+    }
+
+    public @NotNull String getBio() {
+        return bio;
+    }
+
+    public UserEntity setBio(@NotNull String bio) {
+        this.bio = bio;
         return this;
     }
 }

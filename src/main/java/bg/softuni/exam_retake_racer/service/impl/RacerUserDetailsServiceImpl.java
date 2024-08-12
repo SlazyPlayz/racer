@@ -1,7 +1,7 @@
 package bg.softuni.exam_retake_racer.service.impl;
 
-import bg.softuni.exam_retake_racer.model.entity.RoleEntity;
-import bg.softuni.exam_retake_racer.model.entity.UserEntity;
+import bg.softuni.exam_retake_racer.model.entity.user.RoleEntity;
+import bg.softuni.exam_retake_racer.model.entity.user.UserEntity;
 import bg.softuni.exam_retake_racer.repository.UserRepository;
 import bg.softuni.exam_retake_racer.service.RacerUserDetailsService;
 import org.springframework.security.core.GrantedAuthority;

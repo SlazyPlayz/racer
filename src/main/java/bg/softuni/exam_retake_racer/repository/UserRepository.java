@@ -1,6 +1,6 @@
 package bg.softuni.exam_retake_racer.repository;
 
-import bg.softuni.exam_retake_racer.model.entity.UserEntity;
+import bg.softuni.exam_retake_racer.model.entity.user.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

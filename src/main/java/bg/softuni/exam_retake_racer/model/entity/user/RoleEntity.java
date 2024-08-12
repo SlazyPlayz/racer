@@ -1,5 +1,6 @@
-package bg.softuni.exam_retake_racer.model.entity;
+package bg.softuni.exam_retake_racer.model.entity.user;
 
+import bg.softuni.exam_retake_racer.model.entity.BaseEntity;
 import bg.softuni.exam_retake_racer.model.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
