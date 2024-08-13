@@ -18,7 +18,9 @@
                 th:object="${userRegisterBindingModel}"
                 id='register-form'
                 class='input-form'
+                enctype="multipart/form-data"
         >
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
             <div class='input-field'>
                 <label for='firstName'>First name</label>
                 <input
@@ -75,6 +77,25 @@
                         type="password"
                         placeholder='Confirm your password'
                 />
+            </div>
+            <div class='input-field'>
+                <label for='image'>Confirm Password</label>
+                <input
+                        id='image'
+                        name='image'
+                        th:field='*{image}'
+                        type="file"
+                />
+            </div>
+            <div class='input-field'>
+                <label for='bio'>Bio</label>
+                <textarea
+                        id='bio'
+                        name='bio'
+                        th:field='*{bio}'
+                        placeholder='Tell up a little about yourself'>
+
+                </textarea>
             </div>
             <button type='submit'>Register</button>
         </form>

@@ -39,7 +39,12 @@ public class UserEntity extends BaseEntity {
 
     @Column(name = "bio")
     @NotNull
+    @Size(min = 3, max = 512)
     private String bio;
+
+    @Column(name = "imageURL")
+    @NotNull
+    private String imageURL;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -106,12 +111,21 @@ public class UserEntity extends BaseEntity {
         return this;
     }
 
-    public @NotNull String getBio() {
+    public String getBio() {
         return bio;
     }
 
-    public UserEntity setBio(@NotNull String bio) {
+    public UserEntity setBio(String bio) {
         this.bio = bio;
+        return this;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public UserEntity setImageURL(String imageURL) {
+        this.imageURL = imageURL;
         return this;
     }
 }

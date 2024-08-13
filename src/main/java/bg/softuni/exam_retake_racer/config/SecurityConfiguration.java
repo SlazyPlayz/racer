@@ -3,14 +3,12 @@ package bg.softuni.exam_retake_racer.config;
 import bg.softuni.exam_retake_racer.model.enums.Role;
 import bg.softuni.exam_retake_racer.repository.UserRepository;
 import bg.softuni.exam_retake_racer.service.impl.RacerUserDetailsServiceImpl;
-import bg.softuni.exam_retake_racer.util.CustomLoginSuccessHandler;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
@@ -39,6 +37,7 @@ public class SecurityConfiguration {
                                 .requestMatchers("/").permitAll()
                                 .requestMatchers("/users/login", "/users/register").permitAll()
                                 .requestMatchers("/users/profile").authenticated()
+                                .requestMatchers("/images/upload").permitAll()
                                 .requestMatchers("/races").permitAll()
                                 .requestMatchers("/tracks").permitAll()
                                 .requestMatchers("/users").hasRole(Role.ADMIN.name())
@@ -54,7 +53,6 @@ public class SecurityConfiguration {
                                 .passwordParameter("password")
                                 .defaultSuccessUrl("/")
                                 .failureForwardUrl("/users/login-error")
-//                                .successHandler(customLoginSuccessHandler())
                 ).logout(
                         logout -> logout
                                 // the URL where we should POST something in order to perform the logout
@@ -76,9 +74,4 @@ public class SecurityConfiguration {
     public PasswordEncoder passwordEncoder() {
         return Pbkdf2PasswordEncoder.defaultsForSpringSecurity_v5_8();
     }
-
-//    @Bean
-//    public CustomLoginSuccessHandler customLoginSuccessHandler() {
-//        return new CustomLoginSuccessHandler();
-//    }
 }

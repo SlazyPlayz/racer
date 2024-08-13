@@ -1,4 +1,4 @@
-package bg.softuni.exam_retake_racer.model.entity.user;
+package bg.softuni.exam_retake_racer.model.entity.race;
 
 import bg.softuni.exam_retake_racer.model.entity.BaseEntity;
 import jakarta.persistence.*;
@@ -21,7 +21,7 @@ public class TrackEntity extends BaseEntity {
     private String location;
 
 
-    @Column(name = "name")
+    @Column(name = "length")
     @NotNull(message = "Track length cannot be null")
     @Min(value = 0L, message = "Track length cannot be negative")
     private Long length;

@@ -8,7 +8,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller("/")
 public class HomeController {
 
-    // TODO: Change T of return type
     @GetMapping
     public ModelAndView index() {
         return new ModelAndView("index");

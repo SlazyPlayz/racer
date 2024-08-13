@@ -33,20 +33,18 @@ public class UserController {
     @GetMapping("/register")
     public ModelAndView register() {
         ModelAndView modelAndView = new ModelAndView("/users/register");
-        modelAndView.addObject("userRegisterBindingModel", UserRegisterBindingModel.empty());
+        modelAndView.addObject("userRegisterBindingModel", new UserRegisterBindingModel());
         return modelAndView;
     }
 
-    // Register the user
     @PostMapping("/register")
     public ModelAndView register(UserRegisterBindingModel userRegisterBindingModel) {
         userService.register(userRegisterBindingModel);
-
         return new ModelAndView("redirect:/users/login");
     }
 
     @GetMapping("/profile")
-    public ModelAndView profile() throws Exception {
+    public ModelAndView profile() {
         ModelAndView modelAndView = new ModelAndView("/users/profile");
         modelAndView.addObject("user", userService.getUser());
         return modelAndView;

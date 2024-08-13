@@ -1,13 +1,13 @@
 package bg.softuni.exam_retake_racer.model.entity.race;
 
 import bg.softuni.exam_retake_racer.model.entity.BaseEntity;
-import bg.softuni.exam_retake_racer.model.entity.user.TrackEntity;
 import bg.softuni.exam_retake_racer.model.entity.user.UserEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -33,7 +33,11 @@ public class RaceEntity extends BaseEntity {
     @Size(min = 3, max = 120, message = "Track description must be between 3 and 120 characters")
     private String description;
 
-    @Column(name = "type")
+    @Column(name = "date")
+    @NotNull(message = "Date must not be null")
+    private Date date;
+
+    @Column(name = "prize")
     @NotNull(message = "Race prize is required")
     @Min(value = 0, message = "Prize cannot be a negative number")
     private Double prize;
@@ -44,6 +48,9 @@ public class RaceEntity extends BaseEntity {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<UserEntity> participants;
+
+    @Column(name = "hasPassed")
+    private Boolean hasPassed;
 
     public RaceEntity() {
     }
@@ -108,6 +115,24 @@ public class RaceEntity extends BaseEntity {
 
     public RaceEntity setParticipants(Set<UserEntity> participants) {
         this.participants = participants;
+        return this;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public RaceEntity setDate(Date date) {
+        this.date = date;
+        return this;
+    }
+
+    public Boolean getHasPassed() {
+        return hasPassed;
+    }
+
+    public RaceEntity setHasPassed(Boolean hasPassed) {
+        this.hasPassed = hasPassed;
         return this;
     }
 }
