@@ -24,12 +24,14 @@ public class UserServiceImpl implements UserService {
     private final AuthenticationFacade authenticationFacade;
     private final CloudinaryService cloudinaryService;
     private final ModelMapper modelMapper;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, AuthenticationFacade authenticationFacade, CloudinaryService cloudinaryService, ModelMapper modelMapper) {
+    public UserServiceImpl(UserRepository userRepository, AuthenticationFacade authenticationFacade, CloudinaryService cloudinaryService, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.authenticationFacade = authenticationFacade;
         this.cloudinaryService = cloudinaryService;
         this.modelMapper = modelMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -44,7 +46,7 @@ public class UserServiceImpl implements UserService {
             throw new PasswordsDoNotMatchException();
         }
 
-        UserEntity user = modelMapper.map(userRegisterBindingModel, UserEntity.class);
+        UserEntity user = modelMapper.map(userRegisterBindingModel, UserEntity.class).setPassword(passwordEncoder.encode(userRegisterBindingModel.getPassword()));
 
         try {
             String imageUrl = cloudinaryService.uploadFile(userRegisterBindingModel.getImage(), user.getUsername());

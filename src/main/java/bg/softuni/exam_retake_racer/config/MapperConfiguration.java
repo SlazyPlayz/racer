@@ -8,16 +8,9 @@ import bg.softuni.exam_retake_racer.model.entity.user.UserEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class MapperConfiguration {
-
-    private final PasswordEncoder passwordEncoder;
-
-    public MapperConfiguration(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
 
     @Bean
     public ModelMapper modelMapper() {
@@ -97,10 +90,6 @@ public class MapperConfiguration {
                 .addMappings(mapper -> mapper.map(
                         UserRegisterBindingModel::getBio,
                         UserEntity::setBio
-                ))
-                .addMappings(mapper -> mapper.map(
-                        bindingModel -> passwordEncoder.encode(bindingModel.getPassword()),
-                        UserEntity::setPassword
                 ));
 
         // Organizer mappings

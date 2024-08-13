@@ -22,7 +22,7 @@ public class VehicleEntity extends BaseEntity {
     @Size(min = 3, max = 60, message = "Model length must be between 3 and 60 characters")
     private String model;
 
-    @Column(name = "year")
+    @Column(name = "manufacturing_year")
     @NotNull(message = "Vehicle year is required")
     @Min(value = 0, message = "Year must be a positive number")
     private Integer year;
