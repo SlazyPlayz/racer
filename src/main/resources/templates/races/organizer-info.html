@@ -7,5 +7,14 @@
 </head>
 <body>
     <header th:insert="~{/util/navigation}"></header>
+
+    <div class="info-container">
+        <div class="info">
+            <img th:src="${organizer.imageUrl}" alt="Organizer Logo">
+            <h2 th:text="${organizer.name}"></h2>
+            <p th:text="${organizer.headquarters}"></p>
+            <p th:text="${organizer.foundingYear}"></p>
+            <p th:text="${organizer.identificationNumber}"></p>
+        </div>
 </body>
 </html>

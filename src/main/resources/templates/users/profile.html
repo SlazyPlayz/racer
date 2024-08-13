@@ -20,7 +20,12 @@
                 />
                 <div class='user-data'>
                     <h2 class='full-name' th:text="|${user.firstName} ${user.lastName}|">Full Name</h2>
-                    <p class='username' th:text="${user.username}">@username</p>
+                    <p class='username'>@<th:block th:text="${user.username}">username</th:block></p>
+                    <p class='bio' th:text="${user.bio}">
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vel at
+                        tenetur, dolorem minus commodi repellendus nulla blanditiis
+                        libero porro ipsam.
+                    </p>
                     <div class='races-container'>
                         <div class='races-data'>
                             <p class='race-info'>Best Placement</p>
@@ -34,11 +39,6 @@
                 </div>
             </div>
         </div>
-        <p class='about' th:text="${user.bio}">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vel at
-            tenetur, dolorem minus commodi repellendus nulla blanditiis
-            libero porro ipsam.
-        </p>
     </main>
 </body>
 </html>

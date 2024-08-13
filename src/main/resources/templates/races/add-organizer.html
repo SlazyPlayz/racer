@@ -3,8 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title>Add organizer</title>
+    <link rel="stylesheet" th:href="@{/css/defaults.css}">
+    <link rel="stylesheet" th:href="@{/css/user-input.css}">
+    <link rel="stylesheet" th:href="@{/css/add-organizer.css}">
+    <link rel="icon" type="image/png" href="https://img.icons8.com/ios-filled/100/tony-kart.png" />
 </head>
 <body>
 
+    <header th:insert="~{/util/navigation}"></header>
+
+    <div class="input-container">
+        <form
+                th:method="post"
+                th:action="@{/organizers/add}"
+                th:object="${organizerDTO}"
+                id="add-organizer-form"
+                class="input-form">
+
+            <div class='input-field'>
+                <label for="name">Organizer Name</label>
+                <input id="name" th:field="*{name}" type="text" name="name" placeholder="Name">
+            </div>
+
+            <div class='input-field'>
+                <label for="headquarters">Headquarters Location</label>
+                <input id="headquarters" th:field="*{headquarters}" type="text" name="headquarters" placeholder="Headquarters Location">
+            </div>
+
+            <div class='input-field'>
+                <label for="founding-year">Founding Year</label>
+                <input id="founding-year" th:field="*{foundingYear}" type="number" name="founding-year" placeholder="Founding Year">
+            </div>
+
+            <div class='input-field'>
+                <label for="identification-number">Identification number</label>
+                <input id="identification-number" th:field="*{identificationNumber}" type="text" name="identification-number" placeholder="Identification Number">
+            </div>
+
+            <button type='submit'>Add Organizer</button>
+        </form>
+    </div>
 </body>
 </html>

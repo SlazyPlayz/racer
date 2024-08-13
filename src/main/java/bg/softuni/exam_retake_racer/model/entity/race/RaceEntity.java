@@ -46,11 +46,11 @@ public class RaceEntity extends BaseEntity {
     @JoinColumn(name = "organizer_uuid")
     private OrganizerEntity organizer;
 
+    @Column(name = "has_passed")
+    private Boolean hasPassed;
+
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<UserEntity> participants;
-
-    @Column(name = "hasPassed")
-    private Boolean hasPassed;
 
     public RaceEntity() {
     }

@@ -1,5 +1,7 @@
 package bg.softuni.exam_retake_racer.service.impl;
 
+import bg.softuni.exam_retake_racer.exceptions.CloudinaryFolderRenameException;
+import bg.softuni.exam_retake_racer.exceptions.ImageUploadException;
 import bg.softuni.exam_retake_racer.service.CloudinaryService;
 import com.cloudinary.Cloudinary;
 import org.springframework.stereotype.Service;
@@ -26,7 +28,18 @@ public class CloudinaryServiceImpl implements CloudinaryService {
             String publicId = (String) uploadedFile.get("public_id");
             return cloudinary.url().generate(publicId);
         } catch (IOException e) {
-            return null;
+            throw new ImageUploadException();
         }
     }
+
+    @Override
+    public void renameFolder(String oldName, String newName) {
+        try {
+            cloudinary.api().renameFolder(oldName, newName, null);
+        } catch (Exception e) {
+            throw new CloudinaryFolderRenameException();
+        }
+    }
+
+
 }

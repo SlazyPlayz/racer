@@ -23,11 +23,14 @@ public class OrganizerEntity extends BaseEntity {
     @Size(min = 3, max = 60, message = "Organizer headquarters length must be between 3 and 60 characters")
     private String headquarters;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
     @Column(name = "founding_year")
     @NotNull(message = "Organizer founding year cannot be null")
     @Min(1000)
     @Max(value = 2024, message = "Organizer founding year cannot be in the future")
-    private int foundingYear;
+    private Integer foundingYear;
 
     @Column(name = "identification_number")
     @NotNull(message = "Identification number cannot be null")
@@ -55,11 +58,11 @@ public class OrganizerEntity extends BaseEntity {
         return this;
     }
 
-    public int getFoundingYear() {
+    public Integer getFoundingYear() {
         return foundingYear;
     }
 
-    public OrganizerEntity setFoundingYear(int foundingYear) {
+    public OrganizerEntity setFoundingYear(Integer foundingYear) {
         this.foundingYear = foundingYear;
         return this;
     }
@@ -70,6 +73,15 @@ public class OrganizerEntity extends BaseEntity {
 
     public OrganizerEntity setIdentificationNumber(String identificationNumber) {
         this.identificationNumber = identificationNumber;
+        return this;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public OrganizerEntity setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
         return this;
     }
 }
