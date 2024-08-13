@@ -61,7 +61,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO getUser() {
-
         String username = authenticationFacade.getAuthentication().getName();
 
         UserEntity entity = userRepository.findByUsername(username)
