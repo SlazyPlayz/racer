@@ -7,5 +7,58 @@
 </head>
 <body>
     <header th:insert="~{/util/navigation}"></header>
+
+    <form th:method="post" th:action="@{/races/add}" th:object="${raceAddBindingModel}" enctype="multipart/form-data">
+        <div class='input-field'>
+            <label for="name">Race Name</label>
+            <input id="name" th:field="*{name}" type="text" name="name" placeholder="Race Name">
+        </div>
+
+        <div class='input-field'>
+            <label for="type">Race Type</label>
+            <input id="type" th:field="*{type}" type="text" name="type" placeholder="Race Type">
+        </div>
+
+        <div class='input-field'>
+            <label for="track">Track Name</label>
+            <input id="track" th:field="*{track}" type="text" name="track" placeholder="Name of Track">
+        </div>
+
+        <div class='input-field'>
+            <label for="prize">Winning Prize</label>
+            <input id="prize" th:field="*{prize}" type="text" name="prize" placeholder="Winning Prize">
+        </div>
+
+        <div class='input-field'>
+            <label for="organizer">Name of Organizer</label>
+            <input id="organizer" th:field="*{organizer}" type="text" name="organizer" placeholder="Name of Organizer">
+        </div>
+
+        <div class='input-field'>
+            <label for="date">Date of Race</label>
+            <input id="date" th:field="*{date}" type="date" name="date" placeholder="Date of Race">
+        </div>
+
+        <div class='input-field'>
+            <label for="description">Race Description</label>
+            <textarea id="description" th:field="*{description}" name="track" placeholder="Race Description"></textarea>
+        </div>
+
+        <div class='input-field'>
+            <label for="will-participate">Participating</label>
+            <input id="will-participate" th:field="*{willParticipate}" type="checkbox" name="will-participate" placeholder="Are you participating?">
+        </div>
+
+        <div class='input-field'>
+            <label for='image'>Confirm Password</label>
+            <input
+                    id='image'
+                    name='image'
+                    th:field='*{image}'
+                    type="file"
+            />
+        </div>
+        <button type='submit'>Add Organizer</button>
+    </form>
 </body>
 </html>

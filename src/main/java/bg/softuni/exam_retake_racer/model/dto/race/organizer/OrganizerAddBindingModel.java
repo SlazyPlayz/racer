@@ -1,25 +1,27 @@
-package bg.softuni.exam_retake_racer.model.dto;
+package bg.softuni.exam_retake_racer.model.dto.race.organizer;
 
-public class OrganizerDTO {
+import org.springframework.web.multipart.MultipartFile;
+
+public class OrganizerAddBindingModel {
 
     private String name;
 
     private String headquarters;
 
-    private String imageUrl;
+    private MultipartFile image;
 
     private Integer foundingYear;
 
     private String identificationNumber;
 
-    public OrganizerDTO() {
+    public OrganizerAddBindingModel() {
     }
 
     public String getName() {
         return name;
     }
 
-    public OrganizerDTO setName(String name) {
+    public OrganizerAddBindingModel setName(String name) {
         this.name = name;
         return this;
     }
@@ -28,7 +30,7 @@ public class OrganizerDTO {
         return headquarters;
     }
 
-    public OrganizerDTO setHeadquarters(String headquarters) {
+    public OrganizerAddBindingModel setHeadquarters(String headquarters) {
         this.headquarters = headquarters;
         return this;
     }
@@ -37,7 +39,7 @@ public class OrganizerDTO {
         return foundingYear;
     }
 
-    public OrganizerDTO setFoundingYear(Integer foundingYear) {
+    public OrganizerAddBindingModel setFoundingYear(Integer foundingYear) {
         this.foundingYear = foundingYear;
         return this;
     }
@@ -46,17 +48,17 @@ public class OrganizerDTO {
         return identificationNumber;
     }
 
-    public OrganizerDTO setIdentificationNumber(String identificationNumber) {
+    public OrganizerAddBindingModel setIdentificationNumber(String identificationNumber) {
         this.identificationNumber = identificationNumber;
         return this;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public MultipartFile getImage() {
+        return image;
     }
 
-    public OrganizerDTO setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public OrganizerAddBindingModel setImage(MultipartFile image) {
+        this.image = image;
         return this;
     }
 }

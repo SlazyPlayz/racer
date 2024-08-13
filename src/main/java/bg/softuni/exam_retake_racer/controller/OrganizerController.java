@@ -1,6 +1,6 @@
 package bg.softuni.exam_retake_racer.controller;
 
-import bg.softuni.exam_retake_racer.model.dto.OrganizerDTO;
+import bg.softuni.exam_retake_racer.model.dto.race.organizer.OrganizerAddBindingModel;
 import bg.softuni.exam_retake_racer.service.OrganizerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,21 +21,21 @@ public class OrganizerController {
 
     @GetMapping("/{name}")
     public ModelAndView info(@PathVariable String name) {
-        ModelAndView modelAndView = new ModelAndView("/races/organizer-info");
+        ModelAndView modelAndView = new ModelAndView("/organizers/organizer-info");
         modelAndView.addObject("organizer", organizerService.getOrganizerByName(name));
         return modelAndView;
     }
 
     @GetMapping("/add")
     public ModelAndView add() {
-        ModelAndView modelAndView = new ModelAndView("/races/add-organizer");
-        modelAndView.addObject("organizerDTO", new OrganizerDTO());
+        ModelAndView modelAndView = new ModelAndView("/organizers/add-organizer");
+        modelAndView.addObject("organizerAddBindingModel", new OrganizerAddBindingModel());
         return modelAndView;
     }
 
     @PostMapping("/add")
-    public ModelAndView add(OrganizerDTO organizerDTO) {
-        organizerService.addOrganizer(organizerDTO);
+    public ModelAndView add(OrganizerAddBindingModel organizerAddBindingModel) {
+        organizerService.addOrganizer(organizerAddBindingModel);
 
         return new ModelAndView("redirect:/");
     }

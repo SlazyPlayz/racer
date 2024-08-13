@@ -1,7 +1,7 @@
 package bg.softuni.exam_retake_racer.controller;
 
-import bg.softuni.exam_retake_racer.model.dto.UserLoginBindingModel;
-import bg.softuni.exam_retake_racer.model.dto.UserRegisterBindingModel;
+import bg.softuni.exam_retake_racer.model.dto.user.UserLoginBindingModel;
+import bg.softuni.exam_retake_racer.model.dto.user.UserRegisterBindingModel;
 import bg.softuni.exam_retake_racer.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

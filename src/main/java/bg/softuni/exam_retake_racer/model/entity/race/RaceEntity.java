@@ -49,6 +49,9 @@ public class RaceEntity extends BaseEntity {
     @Column(name = "has_passed")
     private Boolean hasPassed;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<UserEntity> participants;
 
@@ -133,6 +136,15 @@ public class RaceEntity extends BaseEntity {
 
     public RaceEntity setHasPassed(Boolean hasPassed) {
         this.hasPassed = hasPassed;
+        return this;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public RaceEntity setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
         return this;
     }
 }

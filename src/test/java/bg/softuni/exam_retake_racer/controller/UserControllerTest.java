@@ -1,6 +1,6 @@
 package bg.softuni.exam_retake_racer.controller;
 
-import bg.softuni.exam_retake_racer.model.dto.UserDTO;
+import bg.softuni.exam_retake_racer.model.dto.user.UserDTO;
 import bg.softuni.exam_retake_racer.service.CloudinaryService;
 import bg.softuni.exam_retake_racer.service.UserService;
 import org.junit.jupiter.api.Test;

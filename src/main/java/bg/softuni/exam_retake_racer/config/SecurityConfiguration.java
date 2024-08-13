@@ -36,10 +36,10 @@ public class SecurityConfiguration {
                                 // Allow anyone to see the home page, registration page and login form
                                 .requestMatchers("/").permitAll()
                                 .requestMatchers("/users/login", "/users/register").permitAll()
-                                .requestMatchers("/users/profile").authenticated()
-                                .requestMatchers("/images/upload").permitAll()
-                                .requestMatchers("/races").permitAll()
-                                .requestMatchers("/tracks").permitAll()
+                                .requestMatchers("/users/profile", "/users/edit").authenticated()
+                                .requestMatchers("/races", "/races/add").permitAll()
+                                .requestMatchers("/tracks", "/tracks/add").permitAll()
+                                .requestMatchers("/organizers", "/organizers/add").permitAll()
                                 .requestMatchers("/users").hasRole(Role.ADMIN.name())
                                 // All other requests are authenticated
                                 .anyRequest().authenticated()

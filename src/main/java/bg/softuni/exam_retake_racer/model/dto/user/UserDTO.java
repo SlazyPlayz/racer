@@ -1,6 +1,4 @@
-package bg.softuni.exam_retake_racer.model.dto;
-
-import java.util.Objects;
+package bg.softuni.exam_retake_racer.model.dto.user;
 
 public class UserDTO {
     private String firstName;

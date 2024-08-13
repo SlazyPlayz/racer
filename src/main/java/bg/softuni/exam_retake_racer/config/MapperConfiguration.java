@@ -1,8 +1,9 @@
 package bg.softuni.exam_retake_racer.config;
 
-import bg.softuni.exam_retake_racer.model.dto.OrganizerDTO;
-import bg.softuni.exam_retake_racer.model.dto.UserDTO;
-import bg.softuni.exam_retake_racer.model.dto.UserRegisterBindingModel;
+import bg.softuni.exam_retake_racer.model.dto.race.organizer.OrganizerAddBindingModel;
+import bg.softuni.exam_retake_racer.model.dto.race.organizer.OrganizerDTO;
+import bg.softuni.exam_retake_racer.model.dto.user.UserDTO;
+import bg.softuni.exam_retake_racer.model.dto.user.UserRegisterBindingModel;
 import bg.softuni.exam_retake_racer.model.entity.race.OrganizerEntity;
 import bg.softuni.exam_retake_racer.model.entity.user.UserEntity;
 import org.modelmapper.ModelMapper;
@@ -136,6 +137,24 @@ public class MapperConfiguration {
                 .addMappings(mapper -> mapper.map(
                         OrganizerEntity::getIdentificationNumber,
                         OrganizerDTO::setIdentificationNumber
+                ));
+
+        modelMapper.typeMap(OrganizerAddBindingModel.class, OrganizerEntity.class)
+                .addMappings(mapper -> mapper.map(
+                        OrganizerAddBindingModel::getName,
+                        OrganizerEntity::setName
+                ))
+                .addMappings(mapper -> mapper.map(
+                        OrganizerAddBindingModel::getHeadquarters,
+                        OrganizerEntity::setHeadquarters
+                ))
+                .addMappings(mapper -> mapper.map(
+                        OrganizerAddBindingModel::getFoundingYear,
+                        OrganizerEntity::setFoundingYear
+                ))
+                .addMappings(mapper -> mapper.map(
+                        OrganizerAddBindingModel::getIdentificationNumber,
+                        OrganizerEntity::setIdentificationNumber
                 ));
 
         return modelMapper;

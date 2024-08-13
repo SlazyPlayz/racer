@@ -4,8 +4,8 @@ import bg.softuni.exam_retake_racer.exceptions.ImageUploadException;
 import bg.softuni.exam_retake_racer.exceptions.PasswordsDoNotMatchException;
 import bg.softuni.exam_retake_racer.exceptions.UserAlreadyExistsException;
 import bg.softuni.exam_retake_racer.exceptions.UserNotFoundException;
-import bg.softuni.exam_retake_racer.model.dto.UserDTO;
-import bg.softuni.exam_retake_racer.model.dto.UserRegisterBindingModel;
+import bg.softuni.exam_retake_racer.model.dto.user.UserDTO;
+import bg.softuni.exam_retake_racer.model.dto.user.UserRegisterBindingModel;
 import bg.softuni.exam_retake_racer.model.entity.user.UserEntity;
 import bg.softuni.exam_retake_racer.repository.UserRepository;
 import bg.softuni.exam_retake_racer.service.CloudinaryService;
@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
         UserEntity user = modelMapper.map(userRegisterBindingModel, UserEntity.class).setPassword(passwordEncoder.encode(userRegisterBindingModel.getPassword()));
 
         try {
-            String imageUrl = cloudinaryService.uploadFile(userRegisterBindingModel.getImage(), user.getUsername());
+            String imageUrl = cloudinaryService.uploadFile(userRegisterBindingModel.getImage(), "users/" + user.getUsername());
             user.setImageUrl(imageUrl);
         } catch (Exception e) {
             throw new ImageUploadException();
