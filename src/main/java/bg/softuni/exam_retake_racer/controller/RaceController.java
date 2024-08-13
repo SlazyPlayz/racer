@@ -2,6 +2,7 @@ package bg.softuni.exam_retake_racer.controller;
 
 import bg.softuni.exam_retake_racer.model.dto.race.RaceAddBindingModel;
 import bg.softuni.exam_retake_racer.service.OrganizerService;
+import bg.softuni.exam_retake_racer.service.RaceService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,9 +15,11 @@ import java.util.Set;
 @RequestMapping("/races")
 public class RaceController {
 
+    private final RaceService raceService;
     private final OrganizerService organizerService;
 
-    public RaceController(OrganizerService organizerService) {
+    public RaceController(RaceService raceService, OrganizerService organizerService) {
+        this.raceService = raceService;
         this.organizerService = organizerService;
     }
 
@@ -31,7 +34,7 @@ public class RaceController {
 
     @PostMapping("/add")
     public ModelAndView add(RaceAddBindingModel raceAddBindingModel) {
-        raceSer
+        raceService.addRace(raceAddBindingModel);
         return new ModelAndView("redirect:/");
     }
 }
