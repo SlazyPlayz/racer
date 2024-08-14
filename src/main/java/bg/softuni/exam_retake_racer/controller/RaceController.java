@@ -3,10 +3,7 @@ package bg.softuni.exam_retake_racer.controller;
 import bg.softuni.exam_retake_racer.model.dto.race.RaceAddBindingModel;
 import bg.softuni.exam_retake_racer.service.OrganizerService;
 import bg.softuni.exam_retake_racer.service.RaceService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Set;
@@ -23,6 +20,13 @@ public class RaceController {
         this.organizerService = organizerService;
     }
 
+    @GetMapping
+    public ModelAndView all() {
+        ModelAndView modelAndView = new ModelAndView("/races/races");
+        modelAndView.addObject("races", raceService.getAllRaces());
+        return modelAndView;
+    }
+
     @GetMapping("/add")
     public ModelAndView add() {
         ModelAndView modelAndView = new ModelAndView("/races/add-race");
@@ -36,5 +40,12 @@ public class RaceController {
     public ModelAndView add(RaceAddBindingModel raceAddBindingModel) {
         raceService.addRace(raceAddBindingModel);
         return new ModelAndView("redirect:/");
+    }
+
+    @GetMapping("/{name}")
+    public ModelAndView details(@PathVariable String name) {
+        ModelAndView modelAndView = new ModelAndView("/races/race-info");
+        modelAndView.addObject("race", raceService.getRaceByName(name));
+        return modelAndView;
     }
 }

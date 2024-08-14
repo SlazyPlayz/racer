@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Tracks</title>
+    <link rel="icon" type="image/png" href="https://img.icons8.com/ios-filled/100/tony-kart.png" />
+    <link rel="stylesheet" href="/css/navigation.css">
+</head>
+<body>
+
+    <header th:insert="~{/util/navigation}"></header>
+
+    <section class="search-container">
+        <form th:method="get" th:action="@{/tracks.html/search}" class="search-form">
+            <label>
+                <input type="text" name="search" placeholder="Search Races" />
+            </label>
+        </form>
+        <div class="add-item-container">
+            <a th:href="@{/tracks/add}" class="add-btn">Add Track</a>
+        </div>
+    </section>
+
+    <section class="search-results" th:each="track : ${tracks}">
+        <article th:replace="~{util/display} :: searchResult(primary = |${track.name} ${track.length}|, secondary = ${track.location}, imageUrl = ${track.imageUrl})"></article>
+    </section>
+
+</body>
+</html>

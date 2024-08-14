@@ -32,11 +32,6 @@ public class OrganizerEntity extends BaseEntity {
     @Max(value = 2024, message = "Organizer founding year cannot be in the future")
     private Integer foundingYear;
 
-    @Column(name = "identification_number")
-    @NotNull(message = "Identification number cannot be null")
-    @Size(min = 3, max = 24, message = "Identification number length must be between 3 and 24 characters")
-    private String identificationNumber;
-
     public OrganizerEntity() {
     }
 
@@ -64,15 +59,6 @@ public class OrganizerEntity extends BaseEntity {
 
     public OrganizerEntity setFoundingYear(Integer foundingYear) {
         this.foundingYear = foundingYear;
-        return this;
-    }
-
-    public String getIdentificationNumber() {
-        return identificationNumber;
-    }
-
-    public OrganizerEntity setIdentificationNumber(String identificationNumber) {
-        this.identificationNumber = identificationNumber;
         return this;
     }
 

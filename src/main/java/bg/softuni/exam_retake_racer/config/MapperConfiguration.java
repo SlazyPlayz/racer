@@ -4,10 +4,13 @@ import bg.softuni.exam_retake_racer.model.dto.race.RaceAddBindingModel;
 import bg.softuni.exam_retake_racer.model.dto.race.RaceDTO;
 import bg.softuni.exam_retake_racer.model.dto.race.organizer.OrganizerAddBindingModel;
 import bg.softuni.exam_retake_racer.model.dto.race.organizer.OrganizerDTO;
+import bg.softuni.exam_retake_racer.model.dto.race.track.TrackAddBindingModel;
+import bg.softuni.exam_retake_racer.model.dto.race.track.TrackDTO;
 import bg.softuni.exam_retake_racer.model.dto.user.UserDTO;
 import bg.softuni.exam_retake_racer.model.dto.user.UserRegisterBindingModel;
 import bg.softuni.exam_retake_racer.model.entity.race.OrganizerEntity;
 import bg.softuni.exam_retake_racer.model.entity.race.RaceEntity;
+import bg.softuni.exam_retake_racer.model.entity.race.TrackEntity;
 import bg.softuni.exam_retake_racer.model.entity.user.UserEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
@@ -117,10 +120,6 @@ public class MapperConfiguration {
                 .addMappings(mapper -> mapper.map(
                         OrganizerDTO::getFoundingYear,
                         OrganizerEntity::setFoundingYear
-                ))
-                .addMappings(mapper -> mapper.map(
-                        OrganizerDTO::getIdentificationNumber,
-                        OrganizerEntity::setIdentificationNumber
                 ));
 
         modelMapper.typeMap(OrganizerEntity.class, OrganizerDTO.class)
@@ -139,10 +138,6 @@ public class MapperConfiguration {
                 .addMappings(mapper -> mapper.map(
                         OrganizerEntity::getFoundingYear,
                         OrganizerDTO::setFoundingYear
-                ))
-                .addMappings(mapper -> mapper.map(
-                        OrganizerEntity::getIdentificationNumber,
-                        OrganizerDTO::setIdentificationNumber
                 ));
 
         modelMapper.typeMap(OrganizerAddBindingModel.class, OrganizerEntity.class)
@@ -157,10 +152,6 @@ public class MapperConfiguration {
                 .addMappings(mapper -> mapper.map(
                         OrganizerAddBindingModel::getFoundingYear,
                         OrganizerEntity::setFoundingYear
-                ))
-                .addMappings(mapper -> mapper.map(
-                        OrganizerAddBindingModel::getIdentificationNumber,
-                        OrganizerEntity::setIdentificationNumber
                 ));
 
         // Race mappings
@@ -173,10 +164,6 @@ public class MapperConfiguration {
                 .addMappings(mapper -> mapper.map(
                         RaceAddBindingModel::getType,
                         RaceEntity::setType
-                ))
-                .addMappings(mapper -> mapper.map(
-                        RaceAddBindingModel::getTrack,
-                        RaceEntity::setTrack
                 ))
                 .addMappings(mapper -> mapper.map(
                         RaceAddBindingModel::getDescription,
@@ -201,7 +188,7 @@ public class MapperConfiguration {
                         RaceDTO::setType
                 ))
                 .addMappings(mapper -> mapper.map(
-                        RaceEntity::getTrack,
+                        entity -> entity.getTrack().getName(),
                         RaceDTO::setTrack
                 ))
                 .addMappings(mapper -> mapper.map(
@@ -223,6 +210,48 @@ public class MapperConfiguration {
                 .addMappings(mapper -> mapper.map(
                         RaceEntity::getOrganizer,
                         RaceDTO::setOrganizer
+                ));
+
+        // Track mappings
+
+        modelMapper.typeMap(TrackEntity.class, TrackDTO.class)
+                .addMappings(mapper -> mapper.map(
+                        TrackEntity::getName,
+                        TrackDTO::setName
+                ))
+                .addMappings(mapper -> mapper.map(
+                        TrackEntity::getLocation,
+                        TrackDTO::setLocation
+                ))
+                .addMappings(mapper -> mapper.map(
+                        TrackEntity::getLength,
+                        TrackDTO::setLength
+                ))
+                .addMappings(mapper -> mapper.map(
+                        TrackEntity::getSurface,
+                        TrackDTO::setSurface
+                ))
+                .addMappings(mapper -> mapper.map(
+                        TrackEntity::getImageUrl,
+                        TrackDTO::setImageUrl
+                ));
+
+        modelMapper.typeMap(TrackAddBindingModel.class, TrackEntity.class)
+                .addMappings(mapper -> mapper.map(
+                        TrackAddBindingModel::getName,
+                        TrackEntity::setName
+                ))
+                .addMappings(mapper -> mapper.map(
+                        TrackAddBindingModel::getLocation,
+                        TrackEntity::setLocation
+                ))
+                .addMappings(mapper -> mapper.map(
+                        TrackAddBindingModel::getLength,
+                        TrackEntity::setLength
+                ))
+                .addMappings(mapper -> mapper.map(
+                        TrackAddBindingModel::getSurface,
+                        TrackEntity::setSurface
                 ));
 
         return modelMapper;

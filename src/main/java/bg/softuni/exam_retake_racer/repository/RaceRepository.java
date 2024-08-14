@@ -10,7 +10,7 @@ import java.util.UUID;
 @Repository
 public interface RaceRepository extends JpaRepository<RaceEntity, UUID> {
 
-    Optional<RaceEntity> findByName(String name);
+    Optional<RaceEntity> findBySearchName(String name);
 
     Optional<RaceEntity> findByOrganizerName(String organizerName);
 }

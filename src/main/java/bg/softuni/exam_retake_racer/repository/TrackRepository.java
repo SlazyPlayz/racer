@@ -10,6 +10,6 @@ import java.util.UUID;
 @Repository
 public interface TrackRepository extends JpaRepository<TrackEntity, UUID> {
 
-    Optional<TrackEntity> findTrackEntityByName(String name);
+    Optional<TrackEntity> findTrackBySearchName(String name);
 
 }

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add organizer</title>
+    <title>Add track</title>
     <link rel="stylesheet" th:href="@{/css/defaults.css}">
     <link rel="stylesheet" th:href="@{/css/user-input.css}">
     <link rel="stylesheet" th:href="@{/css/add-item.css}">
@@ -15,29 +15,34 @@
     <div class="input-container">
         <form
                 th:method="post"
-                th:action="@{/organizers/add}"
-                th:object="${organizerAddBindingModel}"
-                id="add-organizer-form"
+                th:action="@{/tracks/add}"
+                th:object="${trackAddBindingModel}"
+                id="add-track-form"
                 class="input-form"
                 enctype="multipart/form-data">
 
             <div class='input-field'>
-                <label for="name">Organizer Name</label>
+                <label for="name">Track Name</label>
                 <input id="name" th:field="*{name}" type="text" name="name" placeholder="Name">
             </div>
 
             <div class='input-field'>
-                <label for="headquarters">Headquarters Location</label>
-                <input id="headquarters" th:field="*{headquarters}" type="text" name="headquarters" placeholder="Headquarters Location">
+                <label for="location">Track Location</label>
+                <input id="location" th:field="*{location}" type="text" name="location" placeholder="Track Location">
             </div>
 
             <div class='input-field'>
-                <label for="founding-year">Founding Year</label>
-                <input id="founding-year" th:field="*{foundingYear}" type="number" name="founding-year" placeholder="Founding Year">
+                <label for="length">Track Length</label>
+                <input id="length" th:field="*{length}" type="number" name="length" placeholder="Track Length">
             </div>
 
             <div class='input-field'>
-                <label for='image'>Organizer Logo</label>
+                <label for="surface">Surface Type</label>
+                <input id="surface" th:field="*{surface}" type="number" name="surface" placeholder="Surface Type">
+            </div>
+
+            <div class='input-field'>
+                <label for='image'>Track Layout</label>
                 <input
                         id='image'
                         name='image'
@@ -45,7 +50,7 @@
                         type="file"
                 />
             </div>
-            <button type='submit'>Add Organizer</button>
+            <button type='submit'>Add Track</button>
         </form>
     </div>
 </body>

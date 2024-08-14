@@ -23,6 +23,7 @@ public class OrganizerController {
     public ModelAndView info(@PathVariable String name) {
         ModelAndView modelAndView = new ModelAndView("/organizers/organizer-info");
         modelAndView.addObject("organizer", organizerService.getOrganizerByName(name));
+        modelAndView.addObject("races", organizerService.getRacesByOrganizerName(name));
         return modelAndView;
     }
 
@@ -36,7 +37,6 @@ public class OrganizerController {
     @PostMapping("/add")
     public ModelAndView add(OrganizerAddBindingModel organizerAddBindingModel) {
         organizerService.addOrganizer(organizerAddBindingModel);
-
         return new ModelAndView("redirect:/");
     }
 }

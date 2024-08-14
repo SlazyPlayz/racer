@@ -12,8 +12,6 @@ public class OrganizerAddBindingModel {
 
     private Integer foundingYear;
 
-    private String identificationNumber;
-
     public OrganizerAddBindingModel() {
     }
 
@@ -41,15 +39,6 @@ public class OrganizerAddBindingModel {
 
     public OrganizerAddBindingModel setFoundingYear(Integer foundingYear) {
         this.foundingYear = foundingYear;
-        return this;
-    }
-
-    public String getIdentificationNumber() {
-        return identificationNumber;
-    }
-
-    public OrganizerAddBindingModel setIdentificationNumber(String identificationNumber) {
-        this.identificationNumber = identificationNumber;
         return this;
     }
 

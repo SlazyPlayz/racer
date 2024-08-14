@@ -27,6 +27,8 @@
     <section class="races-container">
         <article class="race-data" th:each="race : ${races}">
             <img th:src="${race.imageUrl}" alt="Race Image">
+            <h4 th:text="${race.name}">Race name</h4>
+            <p class="italic" th:text="${race.track}">Race Track</p>
         </article>
     </section>
 </body>

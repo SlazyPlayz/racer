@@ -3,10 +3,12 @@ package bg.softuni.exam_retake_racer.service.impl;
 import bg.softuni.exam_retake_racer.exceptions.ImageUploadException;
 import bg.softuni.exam_retake_racer.exceptions.OrganizerWithIdentificationNumberNotFoundException;
 import bg.softuni.exam_retake_racer.exceptions.OrganizerWithNameNotFoundException;
+import bg.softuni.exam_retake_racer.model.dto.race.OrganizerRaceDTO;
 import bg.softuni.exam_retake_racer.model.dto.race.organizer.OrganizerAddBindingModel;
 import bg.softuni.exam_retake_racer.model.dto.race.organizer.OrganizerDTO;
 import bg.softuni.exam_retake_racer.model.entity.race.OrganizerEntity;
 import bg.softuni.exam_retake_racer.repository.OrganizerRepository;
+import bg.softuni.exam_retake_racer.repository.RaceRepository;
 import bg.softuni.exam_retake_racer.service.CloudinaryService;
 import bg.softuni.exam_retake_racer.service.OrganizerService;
 import org.modelmapper.ModelMapper;
@@ -22,11 +24,13 @@ public class OrganizerServiceImpl implements OrganizerService {
     private final OrganizerRepository organizerRepository;
     private final ModelMapper modelMapper;
     private final CloudinaryService cloudinaryService;
+    private final RaceRepository raceRepository;
 
-    public OrganizerServiceImpl(OrganizerRepository organizerRepository, ModelMapper modelMapper, CloudinaryService cloudinaryService) {
+    public OrganizerServiceImpl(OrganizerRepository organizerRepository, ModelMapper modelMapper, CloudinaryService cloudinaryService, RaceRepository raceRepository) {
         this.organizerRepository = organizerRepository;
         this.modelMapper = modelMapper;
         this.cloudinaryService = cloudinaryService;
+        this.raceRepository = raceRepository;
     }
 
     @Override
@@ -47,20 +51,20 @@ public class OrganizerServiceImpl implements OrganizerService {
     }
 
     @Override
+    public Set<OrganizerRaceDTO> getRacesByOrganizerName(String organizerName) {
+        return raceRepository.findByOrganizerName(organizerName)
+                .stream()
+                .map(raceEntity -> modelMapper
+                        .map(raceEntity, OrganizerRaceDTO.class))
+                .collect(Collectors.toSet());
+    }
+
+    @Override
     public OrganizerDTO getOrganizerByName(String name) {
         return modelMapper.map(organizerRepository
                 .findOrganizerByName(name)
                 .orElseThrow(() -> new OrganizerWithNameNotFoundException(name)),
                 OrganizerDTO.class);
-    }
-
-    @Override
-    public OrganizerDTO getOrganizerByIdentificationNumber(String identificationNumber) {
-        OrganizerEntity entity = organizerRepository
-                .findOrganizerByIdentificationNumber(identificationNumber)
-                .orElseThrow(() -> new OrganizerWithIdentificationNumberNotFoundException(identificationNumber));
-
-        return modelMapper.map(entity, OrganizerDTO.class);
     }
 
     @Override

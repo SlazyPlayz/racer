@@ -10,8 +10,6 @@ public class OrganizerDTO {
 
     private Integer foundingYear;
 
-    private String identificationNumber;
-
     public OrganizerDTO() {
     }
 
@@ -39,15 +37,6 @@ public class OrganizerDTO {
 
     public OrganizerDTO setFoundingYear(Integer foundingYear) {
         this.foundingYear = foundingYear;
-        return this;
-    }
-
-    public String getIdentificationNumber() {
-        return identificationNumber;
-    }
-
-    public OrganizerDTO setIdentificationNumber(String identificationNumber) {
-        this.identificationNumber = identificationNumber;
         return this;
     }
 

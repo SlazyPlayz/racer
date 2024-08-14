@@ -10,7 +10,5 @@ import java.util.UUID;
 @Repository
 public interface OrganizerRepository extends JpaRepository<OrganizerEntity, UUID> {
 
-    Optional<OrganizerEntity> findOrganizerByIdentificationNumber(String identificationNumber);
-
     Optional<OrganizerEntity> findOrganizerByName(String name);
 }

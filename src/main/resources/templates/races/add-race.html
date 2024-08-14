@@ -4,11 +4,16 @@
     <meta charset="UTF-8">
     <title>Add race</title>
     <link rel="icon" type="image/png" href="https://img.icons8.com/ios-filled/100/tony-kart.png" />
+    <link rel="stylesheet" href="/css/defaults.css">
+    <link rel="stylesheet" href="/css/navigation.css">
+    <link rel="stylesheet" href="/css/user-input.css">
 </head>
 <body>
     <header th:insert="~{/util/navigation}"></header>
 
-    <form th:method="post" th:action="@{/races/add}" th:object="${raceAddBindingModel}" enctype="multipart/form-data">
+    <form th:method="post" th:action="@{/races/add}" th:object="${raceAddBindingModel}">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
         <div class='input-field'>
             <label for="name">Race Name</label>
             <input id="name" th:field="*{name}" type="text" name="name" placeholder="Race Name">
@@ -45,20 +50,11 @@
         </div>
 
         <div class='input-field'>
-            <label for="will-participate">Participating</label>
-            <input id="will-participate" th:field="*{willParticipate}" type="checkbox" name="will-participate" placeholder="Are you participating?">
+            <label for="will-participate">Participating
+                <input id="will-participate" th:field="*{willParticipate}" type="checkbox" name="will-participate" placeholder="Are you participating?">
+            </label>
         </div>
-
-        <div class='input-field'>
-            <label for='image'>Confirm Password</label>
-            <input
-                    id='image'
-                    name='image'
-                    th:field='*{image}'
-                    type="file"
-            />
-        </div>
-        <button type='submit'>Add Organizer</button>
+        <button type='submit'>Add Race</button>
     </form>
 </body>
 </html>

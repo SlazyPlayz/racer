@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.Set;
@@ -18,6 +19,9 @@ public class RaceEntity extends BaseEntity {
     @NotNull(message = "Name is required")
     @Size(min = 3, max = 60, message = "Name length must be between 3 and 60 characters")
     private String name;
+
+    @Column(name = "search_name")
+    private String searchName;
 
     @Column(name = "type")
     @NotNull(message = "Race type is required")
@@ -35,6 +39,7 @@ public class RaceEntity extends BaseEntity {
 
     @Column(name = "date")
     @NotNull(message = "Date must not be null")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
 
     @Column(name = "prize")
@@ -42,15 +47,13 @@ public class RaceEntity extends BaseEntity {
     @Min(value = 0, message = "Prize cannot be a negative number")
     private Double prize;
 
+    @Column(name = "image_url")
+    @NotNull
+    private String imageUrl;
+
     @ManyToOne
     @JoinColumn(name = "organizer_uuid")
     private OrganizerEntity organizer;
-
-    @Column(name = "has_passed")
-    private Boolean hasPassed;
-
-    @Column(name = "image_url")
-    private String imageUrl;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<UserEntity> participants;
@@ -130,20 +133,20 @@ public class RaceEntity extends BaseEntity {
         return this;
     }
 
-    public Boolean getHasPassed() {
-        return hasPassed;
+    public String getSearchName() {
+        return searchName;
     }
 
-    public RaceEntity setHasPassed(Boolean hasPassed) {
-        this.hasPassed = hasPassed;
+    public RaceEntity setSearchName(String searchName) {
+        this.searchName = searchName;
         return this;
     }
 
-    public String getImageUrl() {
+    public @NotNull String getImageUrl() {
         return imageUrl;
     }
 
-    public RaceEntity setImageUrl(String imageUrl) {
+    public RaceEntity setImageUrl(@NotNull String imageUrl) {
         this.imageUrl = imageUrl;
         return this;
     }

@@ -1,6 +1,6 @@
 package bg.softuni.exam_retake_racer.model.dto.race;
 
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -9,9 +9,9 @@ public class RaceAddBindingModel {
     private String type;
     private String track;
     private String description;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
     private Double prize;
-    private MultipartFile image;
     private String organizer;
     private Boolean willParticipate;
 
@@ -78,15 +78,6 @@ public class RaceAddBindingModel {
 
     public RaceAddBindingModel setOrganizer(String organizer) {
         this.organizer = organizer;
-        return this;
-    }
-
-    public MultipartFile getImage() {
-        return image;
-    }
-
-    public RaceAddBindingModel setImage(MultipartFile image) {
-        this.image = image;
         return this;
     }
 

@@ -31,6 +31,14 @@ public class TrackEntity extends BaseEntity {
     @Size(min = 3, max = 24, message = "Surface length must be between 3 and 24 characters")
     private String surface;
 
+    @Column(name = "image_url")
+    @NotNull
+    private String imageUrl;
+
+    @Column(name = "search_name")
+    @NotNull
+    private String searchName;
+
     public TrackEntity() {
     }
 
@@ -67,6 +75,24 @@ public class TrackEntity extends BaseEntity {
 
     public TrackEntity setSurface(String surface) {
         this.surface = surface;
+        return this;
+    }
+
+    public @NotNull String getSearchName() {
+        return searchName;
+    }
+
+    public TrackEntity setSearchName(@NotNull String searchName) {
+        this.searchName = searchName;
+        return this;
+    }
+
+    public @NotNull String getImageUrl() {
+        return imageUrl;
+    }
+
+    public TrackEntity setImageUrl(@NotNull String imageUrl) {
+        this.imageUrl = imageUrl;
         return this;
     }
 }

@@ -4,21 +4,19 @@ import bg.softuni.exam_retake_racer.exceptions.*;
 import bg.softuni.exam_retake_racer.model.dto.race.RaceAddBindingModel;
 import bg.softuni.exam_retake_racer.model.dto.race.RaceDTO;
 import bg.softuni.exam_retake_racer.model.entity.race.RaceEntity;
+import bg.softuni.exam_retake_racer.model.entity.race.TrackEntity;
 import bg.softuni.exam_retake_racer.model.entity.user.UserEntity;
 import bg.softuni.exam_retake_racer.repository.OrganizerRepository;
 import bg.softuni.exam_retake_racer.repository.RaceRepository;
+import bg.softuni.exam_retake_racer.repository.TrackRepository;
 import bg.softuni.exam_retake_racer.repository.UserRepository;
-import bg.softuni.exam_retake_racer.service.CloudinaryService;
-import bg.softuni.exam_retake_racer.service.OrganizerService;
 import bg.softuni.exam_retake_racer.service.RaceService;
 import bg.softuni.exam_retake_racer.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.util.Date;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class RaceServiceImpl implements RaceService {
@@ -27,32 +25,37 @@ public class RaceServiceImpl implements RaceService {
     private final UserService userService;
     private final OrganizerRepository organizerRepository;
     private final UserRepository userRepository;
-    private final CloudinaryService cloudinaryService;
+    private final TrackRepository trackRepository;
 
-    public RaceServiceImpl(RaceRepository raceRepository, ModelMapper modelMapper, UserService userService, OrganizerRepository organizerRepository, UserRepository userRepository, CloudinaryService cloudinaryService) {
+    public RaceServiceImpl(RaceRepository raceRepository, ModelMapper modelMapper, UserService userService, OrganizerRepository organizerRepository, UserRepository userRepository, TrackRepository trackRepository) {
         this.raceRepository = raceRepository;
         this.modelMapper = modelMapper;
         this.userService = userService;
         this.organizerRepository = organizerRepository;
         this.userRepository = userRepository;
-        this.cloudinaryService = cloudinaryService;
+        this.trackRepository = trackRepository;
     }
 
     @Override
     public void addRace(RaceAddBindingModel raceAddBindingModel) {
-        raceRepository.findByName(raceAddBindingModel.getName())
+
+        String searchName = toSearchName(raceAddBindingModel.getName());
+
+        raceRepository.findBySearchName(searchName)
                 .ifPresent(raceEntity -> {
                     throw new RaceAlreadyExistsException(raceAddBindingModel.getName());
                 });
 
         RaceEntity raceEntity = modelMapper.map(raceAddBindingModel, RaceEntity.class);
 
-        try {
-            String imageUrl = cloudinaryService.uploadFile(raceAddBindingModel.getImage(), "races/" + raceAddBindingModel.getName());
-            raceEntity.setImageUrl(imageUrl);
-        } catch (IOException e) {
-            throw new ImageUploadException();
-        }
+        raceEntity.setSearchName(searchName);
+
+        String trackName = raceAddBindingModel.getTrack();
+
+        TrackEntity trackEntity = trackRepository.findTrackBySearchName(trackName)
+                .orElseThrow(() -> new TrackNotFoundException(trackName));
+
+        raceEntity.setTrack(trackEntity);
 
         raceEntity.setOrganizer(organizerRepository.findOrganizerByName(raceAddBindingModel.getOrganizer())
                 .orElseThrow(() -> new OrganizerWithNameNotFoundException(raceAddBindingModel.getOrganizer())));
@@ -67,14 +70,14 @@ public class RaceServiceImpl implements RaceService {
 
     @Override
     public RaceDTO getRaceByName(String name) {
-        return raceRepository.findByName(name)
+        return raceRepository.findBySearchName(toSearchName(name))
                 .map(raceEntity -> modelMapper.map(raceEntity, RaceDTO.class))
                 .orElseThrow(() -> new RaceNotFoundException(name));
     }
 
     @Override
     public void participateInRace(String raceName) {
-        RaceEntity raceEntity = raceRepository.findByName(raceName)
+        RaceEntity raceEntity = raceRepository.findBySearchName(toSearchName(raceName))
                 .orElseThrow(() -> new RaceNotFoundException(raceName));
 
         String username = userService.getUser().getUsername();
@@ -84,5 +87,18 @@ public class RaceServiceImpl implements RaceService {
         Set<UserEntity> participants = raceEntity.getParticipants();
         participants.add(userEntity);
         raceEntity.setParticipants(participants);
+    }
+
+    @Override
+    public Set<RaceDTO> getAllRaces() {
+        return raceRepository
+                .findAll()
+                .stream()
+                .map(race -> modelMapper.map(race, RaceDTO.class))
+                .collect(Collectors.toSet());
+    }
+
+    private String toSearchName(String name) {
+        return name.replace(" ", "").toLowerCase();
     }
 }
