@@ -4,17 +4,30 @@
     <meta charset="UTF-8">
     <title>Organizer Info</title>
     <link rel="icon" type="image/png" href="https://img.icons8.com/ios-filled/100/tony-kart.png" />
+    <link rel="stylesheet" th:href="@{/css/info.css}">
 </head>
 <body>
     <header th:insert="~{/util/navigation}"></header>
 
-    <div class="info-container">
-        <div class="info">
-            <img th:src="${organizer.imageUrl}" alt="Organizer Logo">
-            <h2 th:text="${organizer.name}"></h2>
-            <p th:text="${organizer.headquarters}"></p>
-            <p th:text="${organizer.foundingYear}"></p>
-            <p th:text="${organizer.identificationNumber}"></p>
+    <section class='info-container' th:object="${organizer}">
+        <div class='info'>
+            <img
+                    th:src='${organizer.imageUrl}'
+                    alt='Organizer Logo'
+                    class='info-img'
+            />
+            <div class='info-data'>
+                <h2 class='name' th:text="${organizer.getName()}">Organizer Name</h2>
+                <p class='additional-info'><i></i><th:block th:text="${organizer.getHeadquarters()}">Headquarters Location</th:block></p>
+                <p class='additional-info' th:text="${organizer.getFoundingYear()}">Founding Year</p>
+            </div>
         </div>
+    </section>
+
+    <section class="races-container">
+        <article class="race-data" th:each="race : ${races}">
+            <img th:src="${race.imageUrl}" alt="Race Image">
+        </article>
+    </section>
 </body>
 </html>

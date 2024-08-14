@@ -1,21 +1,19 @@
 package bg.softuni.exam_retake_racer.model.dto.vehicle.manufacturer;
 
-import org.springframework.web.multipart.MultipartFile;
-
-public class ManufacturerAddBindingModel {
+public class ManufacturerDTO {
     private String name;
     private String headquarters;
     private Integer foundingYear;
-    private MultipartFile image;
+    private String imageUrl;
 
-    public ManufacturerAddBindingModel() {
+    public ManufacturerDTO() {
     }
 
     public String getName() {
         return name;
     }
 
-    public ManufacturerAddBindingModel setName(String name) {
+    public ManufacturerDTO setName(String name) {
         this.name = name;
         return this;
     }
@@ -24,7 +22,7 @@ public class ManufacturerAddBindingModel {
         return headquarters;
     }
 
-    public ManufacturerAddBindingModel setHeadquarters(String headquarters) {
+    public ManufacturerDTO setHeadquarters(String headquarters) {
         this.headquarters = headquarters;
         return this;
     }
@@ -33,17 +31,17 @@ public class ManufacturerAddBindingModel {
         return foundingYear;
     }
 
-    public ManufacturerAddBindingModel setFoundingYear(Integer foundingYear) {
+    public ManufacturerDTO setFoundingYear(Integer foundingYear) {
         this.foundingYear = foundingYear;
         return this;
     }
 
-    public MultipartFile getImage() {
-        return image;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public ManufacturerAddBindingModel setImage(MultipartFile image) {
-        this.image = image;
+    public ManufacturerDTO setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
         return this;
     }
 }

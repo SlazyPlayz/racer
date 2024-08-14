@@ -4,36 +4,36 @@
     <meta charset="UTF-8">
     <title>Profile</title>
     <link rel="stylesheet" th:href="@{/css/defaults.css}">
-    <link rel="stylesheet" th:href="@{/css/profile.css}">
+    <link rel="stylesheet" th:href="@{/css/info.css}">
     <link rel="icon" type="image/png" href="https://img.icons8.com/ios-filled/100/tony-kart.png" />
 </head>
 <body>
     <header th:insert="~{/util/navigation}"></header>
 
     <main>
-        <div class='user-container' th:object="${user}">
-            <div class='user-info'>
+        <div class='info-container' th:object="${user}">
+            <div class='info'>
                 <img
                         th:src='${user.imageUrl}'
                         alt='Profile'
-                        class='profile-img'
+                        class='info-img'
                 />
-                <div class='user-data'>
-                    <h2 class='full-name' th:text="|${user.firstName} ${user.lastName}|">Full Name</h2>
-                    <p class='username'>@<th:block th:text="${user.username}">username</th:block></p>
+                <div class='info-data'>
+                    <h2 class='name' th:text="|${user.firstName} ${user.lastName}|">Full Name</h2>
+                    <p class='additional-info'>@<th:block th:text="${user.username}">username</th:block></p>
                     <p class='bio' th:text="${user.bio}">
                         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vel at
                         tenetur, dolorem minus commodi repellendus nulla blanditiis
                         libero porro ipsam.
                     </p>
-                    <div class='races-container'>
-                        <div class='races-data'>
+                    <div class='race-info-container'>
+                        <div class='race-info'>
                             <p class='race-info'>Best Placement</p>
-                            <p class='race-data'>4th</p>
+                            <p class='race-info-data'>4th</p>
                         </div>
-                        <div class='races-data'>
+                        <div class='race-info'>
                             <p class='race-info'>Total Races</p>
-                            <p class='race-data'>27</p>
+                            <p class='race-info-data'>27</p>
                         </div>
                     </div>
                 </div>

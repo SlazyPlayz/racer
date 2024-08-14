@@ -2,6 +2,7 @@ package bg.softuni.exam_retake_racer.service.impl;
 
 import bg.softuni.exam_retake_racer.exceptions.ImageUploadException;
 import bg.softuni.exam_retake_racer.exceptions.OrganizerWithIdentificationNumberNotFoundException;
+import bg.softuni.exam_retake_racer.exceptions.OrganizerWithNameNotFoundException;
 import bg.softuni.exam_retake_racer.model.dto.race.organizer.OrganizerAddBindingModel;
 import bg.softuni.exam_retake_racer.model.dto.race.organizer.OrganizerDTO;
 import bg.softuni.exam_retake_racer.model.entity.race.OrganizerEntity;
@@ -49,7 +50,7 @@ public class OrganizerServiceImpl implements OrganizerService {
     public OrganizerDTO getOrganizerByName(String name) {
         return modelMapper.map(organizerRepository
                 .findOrganizerByName(name)
-                .orElseThrow(() -> new OrganizerWithIdentificationNumberNotFoundException(name)),
+                .orElseThrow(() -> new OrganizerWithNameNotFoundException(name)),
                 OrganizerDTO.class);
     }
 

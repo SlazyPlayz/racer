@@ -29,6 +29,9 @@ public class ManufacturerEntity extends BaseEntity {
     @Max(value = 2024, message = "Organizer founding year cannot be in the future")
     private Integer foundingYear;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
     public ManufacturerEntity() {
     }
 
@@ -56,6 +59,15 @@ public class ManufacturerEntity extends BaseEntity {
 
     public ManufacturerEntity setFoundingYear(Integer foundingYear) {
         this.foundingYear = foundingYear;
+        return this;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public ManufacturerEntity setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
         return this;
     }
 }
