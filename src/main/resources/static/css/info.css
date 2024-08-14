@@ -14,7 +14,6 @@ main {
 .info {
     margin-left: 8em;
     width: 80%;
-    /* max-width: 1200px; */
     display: grid;
     grid-template-columns: 1fr 2fr;
     align-items: center;
@@ -24,6 +23,8 @@ main {
     width: 100%;
     height: auto;
     border-radius: 50%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
 }
 
 .info-data {
@@ -53,16 +54,30 @@ main {
     text-align: center;
 }
 
+.race-info-text {
+    border: 1px solid white;
+    border-radius: 4px;
+    padding: 0.5em 0.75em;
+    text-align: center;
+}
+
 .race-info-data {
     font-size: 2.25em;
     font-weight: bold;
 }
 
-.bio {
+.description {
     margin-top: 0.5em;
     margin-bottom: 0.75em;
 }
 
-.races-container {
+button.empty, .form-none {
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+}
 
+.invisible {
+    display: none;
 }

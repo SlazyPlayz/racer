@@ -1,5 +1,6 @@
 package bg.softuni.exam_retake_racer.config;
 
+import bg.softuni.exam_retake_racer.model.dto.race.DisplayRaceDTO;
 import bg.softuni.exam_retake_racer.model.dto.race.RaceAddBindingModel;
 import bg.softuni.exam_retake_racer.model.dto.race.RaceDTO;
 import bg.softuni.exam_retake_racer.model.dto.race.organizer.OrganizerAddBindingModel;
@@ -8,10 +9,15 @@ import bg.softuni.exam_retake_racer.model.dto.race.track.TrackAddBindingModel;
 import bg.softuni.exam_retake_racer.model.dto.race.track.TrackDTO;
 import bg.softuni.exam_retake_racer.model.dto.user.UserDTO;
 import bg.softuni.exam_retake_racer.model.dto.user.UserRegisterBindingModel;
+import bg.softuni.exam_retake_racer.model.dto.vehicle.VehicleDTO;
+import bg.softuni.exam_retake_racer.model.dto.vehicle.manufacturer.ManufacturerAddBindingModel;
+import bg.softuni.exam_retake_racer.model.dto.vehicle.manufacturer.ManufacturerDTO;
 import bg.softuni.exam_retake_racer.model.entity.race.OrganizerEntity;
 import bg.softuni.exam_retake_racer.model.entity.race.RaceEntity;
 import bg.softuni.exam_retake_racer.model.entity.race.TrackEntity;
 import bg.softuni.exam_retake_racer.model.entity.user.UserEntity;
+import bg.softuni.exam_retake_racer.model.entity.vehicle.ManufacturerEntity;
+import bg.softuni.exam_retake_racer.model.entity.vehicle.VehicleEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -204,12 +210,22 @@ public class MapperConfiguration {
                         RaceDTO::setPrize
                 ))
                 .addMappings(mapper -> mapper.map(
-                        RaceEntity::getParticipants,
-                        RaceDTO::setParticipants
-                ))
-                .addMappings(mapper -> mapper.map(
                         RaceEntity::getOrganizer,
                         RaceDTO::setOrganizer
+                ));
+
+        modelMapper.typeMap(RaceEntity.class, DisplayRaceDTO.class)
+                .addMappings(mapper -> mapper.map(
+                        RaceEntity::getName,
+                        DisplayRaceDTO::setName
+                ))
+                .addMappings(mapper -> mapper.map(
+                        entity -> entity.getTrack().getName(),
+                        DisplayRaceDTO::setTrack
+                ))
+                .addMappings(mapper -> mapper.map(
+                        RaceEntity::getImageUrl,
+                        DisplayRaceDTO::setImageUrl
                 ));
 
         // Track mappings
@@ -252,6 +268,77 @@ public class MapperConfiguration {
                 .addMappings(mapper -> mapper.map(
                         TrackAddBindingModel::getSurface,
                         TrackEntity::setSurface
+                ));
+
+        // Vehicle mappings
+        modelMapper.typeMap(VehicleEntity.class, VehicleDTO.class)
+                .addMappings(mapper -> mapper.map(
+                        VehicleEntity::getMake,
+                        VehicleDTO::setMake
+                ))
+                .addMappings(mapper -> mapper.map(
+                        VehicleEntity::getModel,
+                        VehicleDTO::setModel
+                ))
+                .addMappings(mapper -> mapper.map(
+                        VehicleEntity::getHorsepower,
+                        VehicleDTO::setHorsepower
+                ))
+                .addMappings(mapper -> mapper.map(
+                        VehicleEntity::getYear,
+                        VehicleDTO::setYear
+                ));
+
+        modelMapper.typeMap(VehicleDTO.class, VehicleEntity.class)
+                .addMappings(mapper -> mapper.map(
+                        VehicleDTO::getMake,
+                        VehicleEntity::setMake
+                ))
+                .addMappings(mapper -> mapper.map(
+                        VehicleDTO::getModel,
+                        VehicleEntity::setModel
+                ))
+                .addMappings(mapper -> mapper.map(
+                        VehicleDTO::getHorsepower,
+                        VehicleEntity::setHorsepower
+                ))
+                .addMappings(mapper -> mapper.map(
+                        VehicleDTO::getYear,
+                        VehicleEntity::setYear
+                ));
+
+        // Manufacturer mappings
+
+        modelMapper.typeMap(ManufacturerAddBindingModel.class, ManufacturerEntity.class)
+                .addMappings(mapper -> mapper.map(
+                        ManufacturerAddBindingModel::getName,
+                        ManufacturerEntity::setName
+                ))
+                .addMappings(mapper -> mapper.map(
+                        ManufacturerAddBindingModel::getFoundingYear,
+                        ManufacturerEntity::setFoundingYear
+                ))
+                .addMappings(mapper -> mapper.map(
+                        ManufacturerAddBindingModel::getHeadquarters,
+                        ManufacturerEntity::setHeadquarters
+                ));
+
+        modelMapper.typeMap(ManufacturerEntity.class, ManufacturerDTO.class)
+                .addMappings(mapper -> mapper.map(
+                        ManufacturerEntity::getName,
+                        ManufacturerDTO::setName
+                ))
+                .addMappings(mapper -> mapper.map(
+                        ManufacturerEntity::getFoundingYear,
+                        ManufacturerDTO::setFoundingYear
+                ))
+                .addMappings(mapper -> mapper.map(
+                        ManufacturerEntity::getHeadquarters,
+                        ManufacturerDTO::setHeadquarters
+                ))
+                .addMappings(mapper -> mapper.map(
+                        ManufacturerEntity::getImageUrl,
+                        ManufacturerDTO::setImageUrl
                 ));
 
         return modelMapper;

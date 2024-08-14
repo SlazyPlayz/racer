@@ -1,9 +1,8 @@
 package bg.softuni.exam_retake_racer.service.impl;
 
 import bg.softuni.exam_retake_racer.exceptions.ImageUploadException;
-import bg.softuni.exam_retake_racer.exceptions.OrganizerWithIdentificationNumberNotFoundException;
 import bg.softuni.exam_retake_racer.exceptions.OrganizerWithNameNotFoundException;
-import bg.softuni.exam_retake_racer.model.dto.race.OrganizerRaceDTO;
+import bg.softuni.exam_retake_racer.model.dto.race.DisplayRaceDTO;
 import bg.softuni.exam_retake_racer.model.dto.race.organizer.OrganizerAddBindingModel;
 import bg.softuni.exam_retake_racer.model.dto.race.organizer.OrganizerDTO;
 import bg.softuni.exam_retake_racer.model.entity.race.OrganizerEntity;
@@ -51,11 +50,11 @@ public class OrganizerServiceImpl implements OrganizerService {
     }
 
     @Override
-    public Set<OrganizerRaceDTO> getRacesByOrganizerName(String organizerName) {
+    public Set<DisplayRaceDTO> getRacesByOrganizerName(String organizerName) {
         return raceRepository.findByOrganizerName(organizerName)
                 .stream()
                 .map(raceEntity -> modelMapper
-                        .map(raceEntity, OrganizerRaceDTO.class))
+                        .map(raceEntity, DisplayRaceDTO.class))
                 .collect(Collectors.toSet());
     }
 

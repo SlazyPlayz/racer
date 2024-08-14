@@ -23,26 +23,27 @@
                         class='info-img'
                 />
                 <div class='info-data'>
-                    <h2 class='name'><th:block th:text="|${user.firstName} ${user.lastName}|">Full Name</th:block><i class="fa-solid fa-pen"></i></h2>
-                    <p class='additional-info'>@<th:block th:text="${user.username}">username</th:block></p>
-                    <p class='bio' th:text="${user.bio}">
+                    <h2 class='name' th:text="|${user.firstName} ${user.lastName}|">Full Name</h2>
+                    <form class="form-none invisible" id="username-input" th:object="${changeUser}" th:method="post" th:action="@{/users/changeUsername}">
+                        <label>
+                            <input class="input-field" type="text" th:field="*{newUsername}" th:value="${user.username}">
+                        </label>
+                        <button class="empty" type="submit"><i class="fa-solid fa-check fa-xl" style="color: white"></i></button>
+                    </form>
+                    <p class='additional-info' id="username-container">
+                        @<span id="username" th:text="${user.username}">username</span>
+                        <button class="empty" id="edit-username"><i class="fa-solid fa-pen fa-xl" style="color: white"></i></button>
+                    </p>
+                    <p class='description' th:text="${user.bio}">
                         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vel at
                         tenetur, dolorem minus commodi repellendus nulla blanditiis
                         libero porro ipsam.
                     </p>
-                    <div class='race-info-container'>
-                        <div class='race-info'>
-                            <p class='race-info'>Best Placement</p>
-                            <p class='race-info-data'>4th</p>
-                        </div>
-                        <div class='race-info'>
-                            <p class='race-info'>Total Races</p>
-                            <p class='race-info-data'>27</p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </main>
+
+    <script src="/js/profile.js"></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 package bg.softuni.exam_retake_racer.service;
 
-import bg.softuni.exam_retake_racer.model.dto.race.OrganizerRaceDTO;
+import bg.softuni.exam_retake_racer.model.dto.race.DisplayRaceDTO;
 import bg.softuni.exam_retake_racer.model.dto.race.organizer.OrganizerAddBindingModel;
 import bg.softuni.exam_retake_racer.model.dto.race.organizer.OrganizerDTO;
 
@@ -10,7 +10,7 @@ public interface OrganizerService {
 
     void addOrganizer(OrganizerAddBindingModel organizerAddBindingModel);
 
-    Set<OrganizerRaceDTO> getRacesByOrganizerName(String organizerName);
+    Set<DisplayRaceDTO> getRacesByOrganizerName(String organizerName);
 
     OrganizerDTO getOrganizerByName(String name);
 

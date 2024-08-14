@@ -1,5 +1,6 @@
 package bg.softuni.exam_retake_racer.controller;
 
+import bg.softuni.exam_retake_racer.model.dto.user.UsernameChangeDTO;
 import bg.softuni.exam_retake_racer.model.dto.user.UserLoginBindingModel;
 import bg.softuni.exam_retake_racer.model.dto.user.UserRegisterBindingModel;
 import bg.softuni.exam_retake_racer.service.UserService;
@@ -47,7 +48,14 @@ public class UserController {
     public ModelAndView profile() {
         ModelAndView modelAndView = new ModelAndView("/users/profile");
         modelAndView.addObject("user", userService.getUser());
+        modelAndView.addObject("changeUser", new UsernameChangeDTO());
         return modelAndView;
+    }
+
+    @PostMapping("/changeUsername")
+    public ModelAndView changeUsername(UsernameChangeDTO usernameChangeDTO) {
+        userService.changeUsername(usernameChangeDTO);
+        return new ModelAndView("redirect:/users/profile");
     }
 
     //Catch additional exceptions

@@ -1,7 +1,7 @@
 package bg.softuni.exam_retake_racer.model.entity.race;
 
 import bg.softuni.exam_retake_racer.model.entity.BaseEntity;
-import bg.softuni.exam_retake_racer.model.entity.user.UserEntity;
+import bg.softuni.exam_retake_racer.model.entity.user.ParticipantEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -56,7 +56,7 @@ public class RaceEntity extends BaseEntity {
     private OrganizerEntity organizer;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private Set<UserEntity> participants;
+    private Set<ParticipantEntity> participants;
 
     public RaceEntity() {
     }
@@ -115,11 +115,11 @@ public class RaceEntity extends BaseEntity {
         return this;
     }
 
-    public Set<UserEntity> getParticipants() {
+    public Set<ParticipantEntity> getParticipants() {
         return participants;
     }
 
-    public RaceEntity setParticipants(Set<UserEntity> participants) {
+    public RaceEntity setParticipants(Set<ParticipantEntity> participants) {
         this.participants = participants;
         return this;
     }

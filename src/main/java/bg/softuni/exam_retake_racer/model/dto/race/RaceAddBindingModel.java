@@ -13,7 +13,6 @@ public class RaceAddBindingModel {
     private Date date;
     private Double prize;
     private String organizer;
-    private Boolean willParticipate;
 
     public RaceAddBindingModel() {
     }
@@ -78,15 +77,6 @@ public class RaceAddBindingModel {
 
     public RaceAddBindingModel setOrganizer(String organizer) {
         this.organizer = organizer;
-        return this;
-    }
-
-    public Boolean getWillParticipate() {
-        return willParticipate;
-    }
-
-    public RaceAddBindingModel setWillParticipate(Boolean willParticipate) {
-        this.willParticipate = willParticipate;
         return this;
     }
 }

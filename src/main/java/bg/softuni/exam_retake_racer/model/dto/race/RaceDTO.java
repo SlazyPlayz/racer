@@ -1,5 +1,7 @@
 package bg.softuni.exam_retake_racer.model.dto.race;
 
+import bg.softuni.exam_retake_racer.model.dto.user.UserDisplayDTO;
+
 import java.util.Date;
 import java.util.Set;
 
@@ -13,7 +15,7 @@ public class RaceDTO {
     private String organizer;
     private Boolean hasPassed;
     private String imageUrl;
-    private Set<String> participants;
+    private Set<UserDisplayDTO> participants;
 
     public RaceDTO() {
     }
@@ -100,11 +102,11 @@ public class RaceDTO {
         return this;
     }
 
-    public Set<String> getParticipants() {
+    public Set<UserDisplayDTO> getParticipants() {
         return participants;
     }
 
-    public RaceDTO setParticipants(Set<String> participants) {
+    public RaceDTO setParticipants(Set<UserDisplayDTO> participants) {
         this.participants = participants;
         return this;
     }

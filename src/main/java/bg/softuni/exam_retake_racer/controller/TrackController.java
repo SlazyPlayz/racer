@@ -25,7 +25,7 @@ public class TrackController {
         return modelAndView;
     }
 
-    @GetMapping
+    @GetMapping("/add")
     public ModelAndView addTrack(){
         ModelAndView modelAndView = new ModelAndView("/races/add-track");
         modelAndView.addObject("trackAddBindingModel", new TrackAddBindingModel());
