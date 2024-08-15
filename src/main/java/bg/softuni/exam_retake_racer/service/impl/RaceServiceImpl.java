@@ -57,10 +57,12 @@ public class RaceServiceImpl implements RaceService {
 
         String trackName = raceAddBindingModel.getTrack();
 
-        TrackEntity trackEntity = trackRepository.findTrackBySearchName(trackName)
+        TrackEntity trackEntity = trackRepository.findTrackBySearchName(toSearchName(trackName))
                 .orElseThrow(() -> new TrackNotFoundException(trackName));
 
         raceEntity.setTrack(trackEntity);
+
+        raceEntity.setImageUrl(trackEntity.getImageUrl());
 
         raceEntity.setOrganizer(organizerRepository.findOrganizerByName(raceAddBindingModel.getOrganizer())
                 .orElseThrow(() -> new OrganizerWithNameNotFoundException(raceAddBindingModel.getOrganizer())));
@@ -107,7 +109,7 @@ public class RaceServiceImpl implements RaceService {
     }
 
     private String toSearchName(String name) {
-        return name.replace(" ", "").toLowerCase();
+        return name.replace(" ", "-").toLowerCase();
     }
 
     private RaceDTO toDto(RaceEntity raceEntity) {

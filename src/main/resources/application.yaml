@@ -13,7 +13,7 @@ spring:
     #      hibernate:
     #        format_sql: true
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     open-in-view: false
   servlet:
     multipart:
@@ -39,3 +39,7 @@ cloudinary:
   api:
     key: ${CLOUDINARY_API_KEY:}
     secret: ${CLOUDINARY_API_SECRET:}
+
+racer:
+  remember-me:
+    key: ${REMEMBER_ME_KEY:}

@@ -52,7 +52,7 @@ public class UserController {
         return modelAndView;
     }
 
-    @PostMapping("/changeUsername")
+    @PatchMapping("/username")
     public ModelAndView changeUsername(UsernameChangeDTO usernameChangeDTO) {
         userService.changeUsername(usernameChangeDTO);
         return new ModelAndView("redirect:/users/profile");

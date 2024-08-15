@@ -37,6 +37,8 @@ public class TrackServiceImpl implements TrackService {
 
         TrackEntity trackEntity = modelMapper.map(trackAddBindingModel, TrackEntity.class);
 
+        trackEntity.setSearchName(toSearchName(trackAddBindingModel.getName()));
+
         trackEntity.setImageUrl(imageUrl);
 
         trackRepository.save(trackEntity);
@@ -55,6 +57,6 @@ public class TrackServiceImpl implements TrackService {
     }
 
     private String toSearchName(String name) {
-        return name.replace(" ", "").toLowerCase();
+        return name.replace(" ", "-").toLowerCase();
     }
 }

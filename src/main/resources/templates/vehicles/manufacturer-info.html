@@ -7,5 +7,25 @@
 </head>
 <body>
     <header th:insert="~{/util/navigation}"></header>
+    <main>
+        <div class='info-container' th:object="${manufacturer}">
+            <div class='info'>
+                <img
+                        th:src='${manufacturer.imageUrl}'
+                        alt='Profile'
+                        class='info-img'
+                />
+                <div class='info-data'>
+                    <h2 class='name' th:text="${manufacturer.name}">Manufacturer Name</h2>
+                    <p class='additional-info' th:text="${manufacturer.headquarters}"></p>
+                    <p class="main-info" th:text="Founded ${manufacturer.foundingYear}"></p>
+                </div>
+            </div>
+        </div>
+
+        <section class="search-results" th:each="vehicle : ${vehicles}">
+            <article th:replace="~{util/display} :: searchResult(primary = |${participant.firstName} ${participant.lastName}|, secondary = ${participant.username}, imageUrl = ${participant.imageUrl})"></article>
+        </section>
+    </main>
 </body>
 </html>

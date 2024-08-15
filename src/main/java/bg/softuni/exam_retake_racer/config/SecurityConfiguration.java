@@ -3,6 +3,7 @@ package bg.softuni.exam_retake_racer.config;
 import bg.softuni.exam_retake_racer.model.enums.Role;
 import bg.softuni.exam_retake_racer.repository.UserRepository;
 import bg.softuni.exam_retake_racer.service.impl.RacerUserDetailsServiceImpl;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,12 +14,17 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfiguration {
+
+    private final String rememberMeKey;
+
+    public SecurityConfiguration(@Value("${racer.remember-me.key}") String rememberMeKey) {
+        this.rememberMeKey = rememberMeKey;
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
@@ -37,9 +43,11 @@ public class SecurityConfiguration {
                                 .requestMatchers("/").permitAll()
                                 .requestMatchers("/users/login", "/users/register").permitAll()
                                 .requestMatchers("/users/profile", "/users/edit").authenticated()
-                                .requestMatchers("/races", "/races/add").permitAll()
-                                .requestMatchers("/tracks", "/tracks/add").permitAll()
-                                .requestMatchers("/organizers", "/organizers/add").permitAll()
+                                .requestMatchers("/races", "/races/add", "/races/**").permitAll()
+                                .requestMatchers("/tracks", "/tracks/add", "/tracks/**").permitAll()
+                                .requestMatchers("/organizers", "/organizers/add", "/organizers/**").permitAll()
+                                .requestMatchers("/manufacturers", "/manufacturers/add", "/manufacturers/**").permitAll()
+                                .requestMatchers("/vehicles", "/vehicles/add", "/vehicles/**").permitAll()
                                 .requestMatchers("/users").hasRole(Role.ADMIN.name())
                                 // All other requests are authenticated
                                 .anyRequest().authenticated()
@@ -53,6 +61,11 @@ public class SecurityConfiguration {
                                 .passwordParameter("password")
                                 .defaultSuccessUrl("/")
                                 .failureForwardUrl("/users/login-error")
+                ).rememberMe(
+                        rememberMe -> rememberMe
+                                .key(rememberMeKey)
+                                .rememberMeParameter("remember-me")
+                                .rememberMeCookieName("remember-me")
                 ).logout(
                         logout -> logout
                                 // the URL where we should POST something in order to perform the logout

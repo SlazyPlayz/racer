@@ -23,7 +23,7 @@
     </section>
 
     <section class="search-results" th:each="race : ${races}">
-        <article th:replace="~{util/display} :: searchResult(primary = ${race.name}, secondary = ${race.track}, imageUrl = ${race.imageUrl})"></article>
+        <article th:replace="~{util/display :: searchResult(primary = ${race.name}, secondary = ${race.track}, imageUrl = ${race.imageUrl})}"></article>
     </section>
 </body>
 </html>

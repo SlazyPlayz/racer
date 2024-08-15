@@ -7,5 +7,9 @@
 </head>
 <body>
     <header th:insert="~{/util/navigation}"></header>
+
+    <section class="search-results" th:each="vehicle : ${vehicles}">
+        <article th:replace="~{util/display} :: searchResult(primary = |${vehicle.make} ${vehicle.model}|, secondary = ${vehicle.horsepower}, imageUrl = 'none')"></article>
+    </section>
 </body>
 </html>

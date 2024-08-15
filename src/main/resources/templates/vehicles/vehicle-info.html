@@ -7,5 +7,21 @@
 </head>
 <body>
     <header th:insert="~{/util/navigation}"></header>
+    <main>
+        <div class='info-container' th:object="${vehicle}">
+            <div class='info'>
+                <img
+                        th:src='${makeLogoUrl}'
+                        alt='Profile'
+                        class='info-img'
+                />
+                <div class='info-data'>
+                    <h2 class='name' th:text="|${vehicle.make} ${vehicle.model}|">Vehicle Make and Model</h2>
+                    <p class='additional-info' th:text="${vehicle.year}"></p>
+                    <p class="main-info" th:text="${vehicle.horsepower} HP"></p>
+                </div>
+            </div>
+        </div>
+    </main>
 </body>
 </html>

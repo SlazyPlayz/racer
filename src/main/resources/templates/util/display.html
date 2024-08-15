@@ -6,7 +6,7 @@
 </head>
 <body>
   <article class="search-result" th:fragment="searchResult(primary, secondary, imageUrl)">
-    <img th:src="${imageUrl}" th:alt="${primary}" />
+    <img th:unless="${imageUrl == 'none'}" th:src="${imageUrl}" th:alt="${primary}" />
     <h4 th:text="${primary}">Primary text</h4>
     <p th:text="${secondary}">Secondary text</p>
   </article>

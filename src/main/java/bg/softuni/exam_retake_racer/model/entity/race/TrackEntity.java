@@ -36,7 +36,6 @@ public class TrackEntity extends BaseEntity {
     private String imageUrl;
 
     @Column(name = "search_name")
-    @NotNull
     private String searchName;
 
     public TrackEntity() {
@@ -78,11 +77,11 @@ public class TrackEntity extends BaseEntity {
         return this;
     }
 
-    public @NotNull String getSearchName() {
+    public String getSearchName() {
         return searchName;
     }
 
-    public TrackEntity setSearchName(@NotNull String searchName) {
+    public TrackEntity setSearchName(String searchName) {
         this.searchName = searchName;
         return this;
     }

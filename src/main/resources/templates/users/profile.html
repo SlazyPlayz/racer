@@ -24,7 +24,7 @@
                 />
                 <div class='info-data'>
                     <h2 class='name' th:text="|${user.firstName} ${user.lastName}|">Full Name</h2>
-                    <form class="form-none invisible" id="username-input" th:object="${changeUser}" th:method="post" th:action="@{/users/changeUsername}">
+                    <form class="form-none invisible" id="username-input" th:object="${changeUser}" th:method="patch" th:action="@{/users/username}">
                         <label>
                             <input class="input-field" type="text" th:field="*{newUsername}" th:value="${user.username}">
                         </label>

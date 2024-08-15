@@ -7,5 +7,31 @@
 </head>
 <body>
     <header th:insert="~{/util/navigation}"></header>
+
+    <form th:method="post" th:action="@{/manufacturers/add}" th:object="${vehicle}">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+        <div class='input-field'>
+            <label for="make">Vehicle Make</label>
+            <input id="make" th:field="*{make}" type="text" name="make" placeholder="Vehicle Make">
+        </div>
+
+        <div class='input-field'>
+            <label for="model">Vehicle Model</label>
+            <input id="model" th:field="*{model}" type="text" name="model" placeholder="Vehicle Model">
+        </div>
+
+        <div class="input-field">
+            <label for="horsepower">Horsepower</label>
+            <input id="horsepower" th:field="*{horsepower}" type="text" name="horsepower">
+        </div>
+
+        <div class='input-field'>
+            <label for="year">Year of Production</label>
+            <input id="year" th:field="*{year}" type="number" name="year" placeholder="Year of Production">
+        </div>
+
+        <button type='submit'>Add Manufacturer</button>
+    </form>
 </body>
 </html>

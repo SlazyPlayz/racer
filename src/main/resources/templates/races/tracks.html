@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>All Tracks</title>
     <link rel="icon" type="image/png" href="https://img.icons8.com/ios-filled/100/tony-kart.png" />
+    <link rel="stylesheet" href="/css/defaults.css">
     <link rel="stylesheet" href="/css/navigation.css">
 </head>
 <body>
@@ -22,7 +23,7 @@
     </section>
 
     <section class="search-results" th:each="track : ${tracks}">
-        <article th:replace="~{util/display} :: searchResult(primary = |${track.name} ${track.length}|, secondary = ${track.location}, imageUrl = ${track.imageUrl})"></article>
+        <article th:replace="~{util/display :: searchResult(primary = |${track.name} ${track.length}|, secondary = ${track.location}, imageUrl = ${track.imageUrl})}"></article>
     </section>
 
 </body>
