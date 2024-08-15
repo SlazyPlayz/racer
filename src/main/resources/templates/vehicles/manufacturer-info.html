@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Manufacturer Info</title>
-    <link rel="icon" type="image/png" href="https://img.icons8.com/ios-filled/100/tony-kart.png" />
+    <link rel="icon" type="image/png" th:href="@{https://img.icons8.com/ios-filled/100/tony-kart.png}" />
+    <link rel="stylesheet" th:href="@{/css/defaults.css}">
 </head>
 <body>
-    <header th:insert="~{/util/navigation}"></header>
+    <header th:insert="~{/fragments/navigation}"></header>
     <main>
         <div class='info-container' th:object="${manufacturer}">
             <div class='info'>
@@ -24,7 +25,7 @@
         </div>
 
         <section class="search-results" th:each="vehicle : ${vehicles}">
-            <article th:replace="~{util/display} :: searchResult(primary = |${participant.firstName} ${participant.lastName}|, secondary = ${participant.username}, imageUrl = ${participant.imageUrl})"></article>
+            <article th:replace="~{fragments/display} :: searchResult(primary = |${vehicle.make} ${vehicle.model}|, secondary = |${vehicle.horsepower}hp, ${vehicle.year}|, imageUrl = 'none', type = 'vehicles')"></article>
         </section>
     </main>
 </body>

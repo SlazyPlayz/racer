@@ -7,6 +7,7 @@ import bg.softuni.exam_retake_racer.model.dto.race.organizer.OrganizerAddBinding
 import bg.softuni.exam_retake_racer.model.dto.race.organizer.OrganizerDTO;
 import bg.softuni.exam_retake_racer.model.dto.race.track.TrackAddBindingModel;
 import bg.softuni.exam_retake_racer.model.dto.race.track.TrackDTO;
+import bg.softuni.exam_retake_racer.model.dto.user.ParticipantDTO;
 import bg.softuni.exam_retake_racer.model.dto.user.UserDTO;
 import bg.softuni.exam_retake_racer.model.dto.user.UserRegisterBindingModel;
 import bg.softuni.exam_retake_racer.model.dto.vehicle.VehicleDTO;
@@ -15,6 +16,7 @@ import bg.softuni.exam_retake_racer.model.dto.vehicle.manufacturer.ManufacturerD
 import bg.softuni.exam_retake_racer.model.entity.race.OrganizerEntity;
 import bg.softuni.exam_retake_racer.model.entity.race.RaceEntity;
 import bg.softuni.exam_retake_racer.model.entity.race.TrackEntity;
+import bg.softuni.exam_retake_racer.model.entity.user.ParticipantEntity;
 import bg.softuni.exam_retake_racer.model.entity.user.UserEntity;
 import bg.softuni.exam_retake_racer.model.entity.vehicle.ManufacturerEntity;
 import bg.softuni.exam_retake_racer.model.entity.vehicle.VehicleEntity;
@@ -339,6 +341,21 @@ public class MapperConfiguration {
                 .addMappings(mapper -> mapper.map(
                         ManufacturerEntity::getImageUrl,
                         ManufacturerDTO::setImageUrl
+                ));
+
+        // Participant mappings
+        modelMapper.typeMap(ParticipantEntity.class, ParticipantDTO.class)
+                .addMappings(mapper -> mapper.map(
+                        entity -> entity.getUser().getUsername(),
+                        ParticipantDTO::setUsername
+                ))
+                .addMappings(mapper -> mapper.map(
+                        entity -> entity.getVehicle().getMake(),
+                        ParticipantDTO::setVehicleMake
+                ))
+                .addMappings(mapper -> mapper.map(
+                        entity -> entity.getVehicle().getModel(),
+                        ParticipantDTO::setVehicleModel
                 ));
 
         return modelMapper;

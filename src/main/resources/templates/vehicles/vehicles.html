@@ -2,17 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>All Tracks</title>
+    <title>Search Vehicle</title>
     <link rel="icon" type="image/png" th:href="@{https://img.icons8.com/ios-filled/100/tony-kart.png}" />
     <link rel="stylesheet" th:href="@{/css/defaults.css}">
     <link rel="stylesheet" th:href="@{/css/display.css}">
 </head>
 <body>
-
     <header th:insert="~{/fragments/navigation}"></header>
 
     <section class="search-container">
-        <form th:method="get" th:action="@{/tracks/search}" class="search-form">
+        <form th:method="get" th:action="@{/tracks.html/search}" class="search-form">
             <label>
                 <input type="text" name="search" placeholder="Search Races" />
             </label>
@@ -22,9 +21,8 @@
         </div>
     </section>
 
-    <section class="search-results" th:each="track : ${tracks}">
-        <article th:replace="~{fragments/display :: searchResult(primary = |${track.name} (${track.length}m)|, secondary = ${track.location}, imageUrl = ${track.imageUrl}, type = 'tracks')}"></article>
+    <section class="search-results" th:each="vehicle : ${vehicles}">
+        <article th:replace="~{fragments/display} :: searchResult(primary = |${vehicle.make} ${vehicle.model}|, secondary = ${vehicle.horsepower}, imageUrl = 'none', type = 'vehicles')"></article>
     </section>
-
 </body>
 </html>

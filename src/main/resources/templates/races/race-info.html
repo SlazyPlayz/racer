@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Race info</title>
+    <link rel="icon" type="image/png" th:href="@{https://img.icons8.com/ios-filled/100/tony-kart.png}" />
     <link rel="stylesheet" th:href="@{/css/defaults.css}">
     <link rel="stylesheet" th:href="@{/css/info.css}">
-    <link rel="icon" type="image/png" href="https://img.icons8.com/ios-filled/100/tony-kart.png" />
+    <link rel="stylesheet" th:href="@{/css/display.css}">
 </head>
 <body>
-    <header th:insert="~{/util/navigation}"></header>
+    <header th:insert="~{/fragments/navigation}"></header>
     <main>
         <div class='info-container' th:object="${race}">
             <div class='info'>
@@ -28,7 +29,7 @@
         </div>
 
         <section class="search-results" th:each="participant : ${race.participants}">
-            <article th:replace="~{util/display} :: searchResult(primary = |${participant.firstName} ${participant.lastName}|, secondary = ${participant.username}, imageUrl = ${participant.imageUrl})"></article>
+            <article th:replace="~{fragments/display} :: searchResult(primary = |${participant.firstName} ${participant.lastName}|, secondary = ${participant.username}, imageUrl = ${participant.imageUrl}, type = 'none')"></article>
         </section>
     </main>
 </body>

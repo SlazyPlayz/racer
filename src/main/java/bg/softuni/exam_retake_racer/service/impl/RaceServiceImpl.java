@@ -3,6 +3,7 @@ package bg.softuni.exam_retake_racer.service.impl;
 import bg.softuni.exam_retake_racer.exceptions.*;
 import bg.softuni.exam_retake_racer.model.dto.race.RaceAddBindingModel;
 import bg.softuni.exam_retake_racer.model.dto.race.RaceDTO;
+import bg.softuni.exam_retake_racer.model.dto.user.ParticipantDTO;
 import bg.softuni.exam_retake_racer.model.dto.user.UserDisplayDTO;
 import bg.softuni.exam_retake_racer.model.dto.vehicle.VehicleDTO;
 import bg.softuni.exam_retake_racer.model.entity.race.RaceEntity;
@@ -13,6 +14,7 @@ import bg.softuni.exam_retake_racer.model.entity.vehicle.VehicleEntity;
 import bg.softuni.exam_retake_racer.repository.*;
 import bg.softuni.exam_retake_racer.service.RaceService;
 import bg.softuni.exam_retake_racer.service.UserService;
+import bg.softuni.exam_retake_racer.util.AuthenticationFacade;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -29,8 +31,9 @@ public class RaceServiceImpl implements RaceService {
     private final TrackRepository trackRepository;
     private final VehicleRepository vehicleRepository;
     private final ParticipantRepository participantRepository;
+    private final AuthenticationFacade authenticationFacade;
 
-    public RaceServiceImpl(RaceRepository raceRepository, ModelMapper modelMapper, UserService userService, OrganizerRepository organizerRepository, UserRepository userRepository, TrackRepository trackRepository, VehicleRepository vehicleRepository, ParticipantRepository participantRepository) {
+    public RaceServiceImpl(RaceRepository raceRepository, ModelMapper modelMapper, UserService userService, OrganizerRepository organizerRepository, UserRepository userRepository, TrackRepository trackRepository, VehicleRepository vehicleRepository, ParticipantRepository participantRepository, AuthenticationFacade authenticationFacade) {
         this.raceRepository = raceRepository;
         this.modelMapper = modelMapper;
         this.userService = userService;
@@ -39,6 +42,7 @@ public class RaceServiceImpl implements RaceService {
         this.trackRepository = trackRepository;
         this.vehicleRepository = vehicleRepository;
         this.participantRepository = participantRepository;
+        this.authenticationFacade = authenticationFacade;
     }
 
     @Override
@@ -108,6 +112,26 @@ public class RaceServiceImpl implements RaceService {
                 .collect(Collectors.toSet());
     }
 
+    @Override
+    public Set<ParticipantDTO> getParticipants(String name) {
+        return raceRepository
+                .findBySearchName(name)
+                .stream()
+                .map(RaceEntity::getParticipants)
+                .map(entity -> modelMapper.map(entity, ParticipantDTO.class))
+                .collect(Collectors.toSet());
+    }
+
+    @Override
+    public Set<RaceDTO> getUserRaces() {
+        Set<ParticipantEntity> participants = participantRepository.findByUser(getUserEntity());
+        return raceRepository
+                .findAllByParticipantsContaining(participants)
+                .stream()
+                .map(entity -> modelMapper.map(entity, RaceDTO.class))
+                .collect(Collectors.toSet());
+    }
+
     private String toSearchName(String name) {
         return name.replace(" ", "-").toLowerCase();
     }
@@ -121,5 +145,12 @@ public class RaceServiceImpl implements RaceService {
                 .collect(Collectors.toSet());
         raceDTO.setParticipants(participants);
         return raceDTO;
+    }
+
+    private UserEntity getUserEntity() {
+        String username = authenticationFacade.getAuthentication().getName();
+
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException(username));
     }
 }

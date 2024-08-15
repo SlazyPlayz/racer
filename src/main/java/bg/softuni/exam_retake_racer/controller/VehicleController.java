@@ -21,7 +21,7 @@ public class VehicleController {
 
     @GetMapping
     public ModelAndView allVehicles() {
-        ModelAndView modelAndView = new ModelAndView("/vehicles/all-vehicles");
+        ModelAndView modelAndView = new ModelAndView("vehicles/vehicles");
         modelAndView.addObject("vehicles", vehicleService.getAll());
         return modelAndView;
     }

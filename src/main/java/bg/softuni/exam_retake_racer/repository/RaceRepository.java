@@ -1,7 +1,7 @@
 package bg.softuni.exam_retake_racer.repository;
 
 import bg.softuni.exam_retake_racer.model.entity.race.RaceEntity;
-import bg.softuni.exam_retake_racer.model.entity.user.UserEntity;
+import bg.softuni.exam_retake_racer.model.entity.user.ParticipantEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,5 +16,5 @@ public interface RaceRepository extends JpaRepository<RaceEntity, UUID> {
 
     Optional<RaceEntity> findByOrganizerName(String organizerName);
 
-    Set<RaceEntity> findAllByParticipantsContaining(Set<UserEntity> participants);
+    Set<RaceEntity> findAllByParticipantsContaining(Set<ParticipantEntity> participants);
 }

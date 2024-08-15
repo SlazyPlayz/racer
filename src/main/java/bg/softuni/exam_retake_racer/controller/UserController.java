@@ -3,6 +3,7 @@ package bg.softuni.exam_retake_racer.controller;
 import bg.softuni.exam_retake_racer.model.dto.user.UsernameChangeDTO;
 import bg.softuni.exam_retake_racer.model.dto.user.UserLoginBindingModel;
 import bg.softuni.exam_retake_racer.model.dto.user.UserRegisterBindingModel;
+import bg.softuni.exam_retake_racer.service.RaceService;
 import bg.softuni.exam_retake_racer.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,10 +18,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class UserController {
 
     private final UserService userService;
+    private final RaceService raceService;
     private final Logger logger;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, RaceService raceService) {
         this.userService = userService;
+        this.raceService = raceService;
         this.logger = LoggerFactory.getLogger(UserController.class);
     }
 
@@ -49,6 +52,7 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView("/users/profile");
         modelAndView.addObject("user", userService.getUser());
         modelAndView.addObject("changeUser", new UsernameChangeDTO());
+        modelAndView.addObject("races", raceService.getUserRaces());
         return modelAndView;
     }
 

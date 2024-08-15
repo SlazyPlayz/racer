@@ -5,7 +5,9 @@ import bg.softuni.exam_retake_racer.model.dto.race.DisplayRaceDTO;
 import bg.softuni.exam_retake_racer.model.dto.user.UserDTO;
 import bg.softuni.exam_retake_racer.model.dto.user.UserRegisterBindingModel;
 import bg.softuni.exam_retake_racer.model.dto.user.UsernameChangeDTO;
+import bg.softuni.exam_retake_racer.model.entity.user.ParticipantEntity;
 import bg.softuni.exam_retake_racer.model.entity.user.UserEntity;
+import bg.softuni.exam_retake_racer.repository.ParticipantRepository;
 import bg.softuni.exam_retake_racer.repository.RaceRepository;
 import bg.softuni.exam_retake_racer.repository.UserRepository;
 import bg.softuni.exam_retake_racer.service.CloudinaryService;
@@ -35,8 +37,9 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserDetailsService userDetailsService;
     private final RaceRepository raceRepository;
+    private final ParticipantRepository participantRepository;
 
-    public UserServiceImpl(UserRepository userRepository, AuthenticationFacade authenticationFacade, CloudinaryService cloudinaryService, ModelMapper modelMapper, PasswordEncoder passwordEncoder, UserDetailsService userDetailsService, RaceRepository raceRepository) {
+    public UserServiceImpl(UserRepository userRepository, AuthenticationFacade authenticationFacade, CloudinaryService cloudinaryService, ModelMapper modelMapper, PasswordEncoder passwordEncoder, UserDetailsService userDetailsService, RaceRepository raceRepository, ParticipantRepository participantRepository) {
         this.userRepository = userRepository;
         this.authenticationFacade = authenticationFacade;
         this.cloudinaryService = cloudinaryService;
@@ -44,6 +47,7 @@ public class UserServiceImpl implements UserService {
         this.passwordEncoder = passwordEncoder;
         this.userDetailsService = userDetailsService;
         this.raceRepository = raceRepository;
+        this.participantRepository = participantRepository;
     }
 
     @Override
@@ -102,8 +106,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Set<DisplayRaceDTO> getRaces() {
-        return raceRepository.findAllByParticipantsContaining(Set.of(getUserEntity()))
-                .stream().map(raceEntity -> modelMapper.map(raceEntity, DisplayRaceDTO.class))
+        Set<ParticipantEntity> participants = participantRepository.findByUser(getUserEntity());
+        return raceRepository.findAllByParticipantsContaining(participants)
+                .stream()
+                .map(entity -> modelMapper.map(entity, DisplayRaceDTO.class))
                 .collect(Collectors.toSet());
     }
 

@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Add manufacturer</title>
-    <link rel="icon" type="image/png" href="https://img.icons8.com/ios-filled/100/tony-kart.png" />
+    <link rel="icon" type="image/png" th:href="@{https://img.icons8.com/ios-filled/100/tony-kart.png}" />
+    <link rel="stylesheet" th:href="@{/css/defaults.css}">
 </head>
 <body>
-    <header th:insert="~{/util/navigation}"></header>
+    <header th:insert="~{/fragments/navigation}"></header>
 
     <form th:method="post" th:action="@{/manufacturers/add}" th:object="${manufacturer}" enctype="multipart/form-data">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>

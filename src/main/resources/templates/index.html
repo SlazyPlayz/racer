@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Racer</title>
+    <link rel="icon" type="image/png" th:href="@{https://img.icons8.com/ios-filled/100/tony-kart.png}" />
     <link rel="stylesheet" th:href="@{/css/defaults.css}">
     <link rel="stylesheet" th:href="@{/css/index.css}">
-    <link rel="icon" type="image/png" href="https://img.icons8.com/ios-filled/100/tony-kart.png" />
 </head>
 <body>
-    <header th:insert="~{/util/navigation}"></header>
+    <header th:insert="~{/fragments/navigation}"></header>
 
     <main>
         <div class='home-container'>
@@ -28,16 +28,13 @@
             </section>
             <section class='upcoming-races'>
                 <h3>Upcoming Races</h3>
-                <article>
+                <article th:each="race : ${races}">
                     <h6>
-                        Milano Qualifications <span>(Milan)</span>
+                        <th:block th:text="${race.name}">Race name</th:block>
+                        <span th:text="(${race.track})">(Race Track)</span>
                     </h6>
-                    <p>Milano Race Association</p>
+                    <p th:text="${race.organizer}">Organizer</p>
                 </article>
-                <article>This is another test</article>
-                <article>This is another test</article>
-                <article>This is another test</article>
-                <article>This is another test</article>
             </section>
         </div>
     </main>

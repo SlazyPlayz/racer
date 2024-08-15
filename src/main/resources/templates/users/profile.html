@@ -3,16 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Profile</title>
+    <link rel="icon" type="image/png" th:href="@{https://img.icons8.com/ios-filled/100/tony-kart.png}" />
     <link rel="stylesheet" th:href="@{/css/defaults.css}">
     <link rel="stylesheet" th:href="@{/css/info.css}">
-    <link rel="icon" type="image/png" href="https://img.icons8.com/ios-filled/100/tony-kart.png" />
-    <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-    />
+    <link rel="stylesheet" th:href="@{/css/display.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 </head>
 <body>
-    <header th:insert="~{/util/navigation}"></header>
+    <header th:insert="~{/fragments/navigation}"></header>
 
     <main>
         <div class='info-container' th:object="${user}">
@@ -43,6 +41,10 @@
             </div>
         </div>
     </main>
+
+    <section class="search-results" th:each="race : ${races}">
+        <article th:replace="~{fragments/display :: searchResult(primary = ${race.name}, secondary = ${race.track}, imageUrl = ${race.imageUrl}, type = 'races')}"></article>
+    </section>
 
     <script src="/js/profile.js"></script>
 </body>
