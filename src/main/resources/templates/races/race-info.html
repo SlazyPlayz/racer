@@ -22,14 +22,15 @@
                     <h2 class='name' th:text="${race.name}">Full Name</h2>
                     <p class='additional-info' th:text="${race.organizer}"></p>
                     <p class="main-info" th:text="|${race.track} (${race.type})|"></p>
-                    <p class="main-info" th:text="${#temporals.format(race.date, 'dd.MM.yyyy')}"></p>
+                    <p class="main-info" th:text="${#dates.format(race.date, 'dd.MM.yyyy')}"></p>
                     <p class='description' th:text="${race.description}"></p>
+                    <a th:href="@{|/races/participate/${race.name}|}">Participate</a>
                 </div>
             </div>
         </div>
 
         <section class="search-results" th:each="participant : ${race.participants}">
-            <article th:replace="~{fragments/display} :: searchResult(primary = |${participant.firstName} ${participant.lastName}|, secondary = ${participant.username}, imageUrl = ${participant.imageUrl}, type = 'none')"></article>
+            <article th:replace="~{fragments/display :: searchResult(primary = |${participant.firstName} ${participant.lastName}|, secondary = ${participant.username}, imageUrl = ${participant.imageUrl}, link = 'none')}"></article>
         </section>
     </main>
 </body>

@@ -4,7 +4,8 @@ import bg.softuni.exam_retake_racer.exceptions.ParticipantAlreadyExistsException
 import bg.softuni.exam_retake_racer.exceptions.ParticipantNotFoundException;
 import bg.softuni.exam_retake_racer.exceptions.UserNotFoundException;
 import bg.softuni.exam_retake_racer.exceptions.VehicleNotFoundException;
-import bg.softuni.exam_retake_racer.model.dto.user.ParticipantDTO;
+import bg.softuni.exam_retake_racer.model.dto.user.participant.ParticipantAddBindingModel;
+import bg.softuni.exam_retake_racer.model.dto.user.participant.ParticipantDTO;
 import bg.softuni.exam_retake_racer.model.entity.user.ParticipantEntity;
 import bg.softuni.exam_retake_racer.model.entity.user.UserEntity;
 import bg.softuni.exam_retake_racer.model.entity.vehicle.VehicleEntity;
@@ -12,6 +13,7 @@ import bg.softuni.exam_retake_racer.repository.ParticipantRepository;
 import bg.softuni.exam_retake_racer.repository.UserRepository;
 import bg.softuni.exam_retake_racer.repository.VehicleRepository;
 import bg.softuni.exam_retake_racer.service.ParticipantService;
+import bg.softuni.exam_retake_racer.service.UserService;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,19 +21,21 @@ public class ParticipantServiceImpl implements ParticipantService {
     private final ParticipantRepository participantRepository;
     private final UserRepository userRepository;
     private final VehicleRepository vehicleRepository;
+    private final UserService userService;
 
-    public ParticipantServiceImpl(ParticipantRepository participantRepository, UserRepository userRepository, VehicleRepository vehicleRepository) {
+    public ParticipantServiceImpl(ParticipantRepository participantRepository, UserRepository userRepository, VehicleRepository vehicleRepository, UserService userService) {
         this.participantRepository = participantRepository;
         this.userRepository = userRepository;
         this.vehicleRepository = vehicleRepository;
+        this.userService = userService;
     }
 
     @Override
-    public void addParticipant(ParticipantDTO participantDTO) {
+    public void addParticipant(ParticipantAddBindingModel participantAddBindingModel) {
 
-        String username = participantDTO.getUsername();
-        String vehicleMake = participantDTO.getVehicleMake();
-        String vehicleModel = participantDTO.getVehicleModel();
+        String username = userService.getUser().getUsername();
+        String vehicleMake = participantAddBindingModel.getVehicleMake();
+        String vehicleModel = participantAddBindingModel.getVehicleModel();
 
         UserEntity user = getUser(username);
         VehicleEntity vehicle = getVehicle(vehicleMake, vehicleModel);

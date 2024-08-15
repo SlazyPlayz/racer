@@ -5,10 +5,16 @@
     grid-template-areas:
         'last-race upcoming-races'
         'last-race-leaderboard upcoming-races';
+    height: 100%;
 }
 
 .last-race {
     grid-area: last-race;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .last-race-leaderboard {

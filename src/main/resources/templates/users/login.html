@@ -5,7 +5,7 @@
     <title>Login</title>
     <link rel="icon" type="image/png" th:href="@{https://img.icons8.com/ios-filled/100/tony-kart.png}" />
     <link rel="stylesheet" th:href="@{/css/defaults.css}">
-    <link rel="stylesheet" th:href="@{/css/user-input.css}">
+    <link rel="stylesheet" th:href="@{/css/input.css}">
 </head>
 <body>
     <header th:insert="~{/fragments/navigation}"></header>
@@ -26,6 +26,7 @@
                         th:field="*{username}"
                         placeholder='Enter your username'
                 />
+                <p class="error-text" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Error</p>
             </div>
             <div class='input-field'>
                 <label for='password'>Password</label>
@@ -36,6 +37,7 @@
                         type="password"
                         placeholder='Enter your password'
                 />
+                <p class="error-text" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error</p>
             </div>
             <label for="remember-me">Remember me?</label>
             <input id="remember-me" name="remember-me" th:field="*{rememberMe}" type="checkbox">

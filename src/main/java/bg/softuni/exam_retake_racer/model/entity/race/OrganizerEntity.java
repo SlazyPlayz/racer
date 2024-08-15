@@ -32,6 +32,9 @@ public class OrganizerEntity extends BaseEntity {
     @Max(value = 2024, message = "Organizer founding year cannot be in the future")
     private Integer foundingYear;
 
+    @Column(name = "search_name")
+    private String searchName;
+
     public OrganizerEntity() {
     }
 
@@ -68,6 +71,15 @@ public class OrganizerEntity extends BaseEntity {
 
     public OrganizerEntity setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+        return this;
+    }
+
+    public String getSearchName() {
+        return searchName;
+    }
+
+    public OrganizerEntity setSearchName(String searchName) {
+        this.searchName = searchName;
         return this;
     }
 }

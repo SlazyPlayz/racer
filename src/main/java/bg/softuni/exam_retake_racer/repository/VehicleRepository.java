@@ -13,5 +13,7 @@ public interface VehicleRepository extends JpaRepository<VehicleEntity, UUID> {
 
     Set<VehicleEntity> findAllByMake(String make);
 
+    Optional<VehicleEntity> findVehicleBySearchName(String searchName);
+
     Optional<VehicleEntity> findByMakeAndModel(String make, String model);
 }

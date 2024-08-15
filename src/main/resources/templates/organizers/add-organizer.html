@@ -5,7 +5,7 @@
     <title>Add organizer</title>
     <link rel="icon" type="image/png" th:href="@{https://img.icons8.com/ios-filled/100/tony-kart.png}" />
     <link rel="stylesheet" th:href="@{/css/defaults.css}">
-    <link rel="stylesheet" th:href="@{/css/user-input.css}">
+    <link rel="stylesheet" th:href="@{/css/input.css}">
     <link rel="stylesheet" th:href="@{/css/add-item.css}">
 </head>
 <body>
@@ -23,17 +23,20 @@
 
             <div class='input-field'>
                 <label for="name">Organizer Name</label>
-                <input id="name" th:field="*{name}" type="text" name="name" placeholder="Name">
+                <input id="name" th:field="*{name}" th:errorclass="error" type="text" name="name" placeholder="Name">
+                <p class="error-text" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</p>
             </div>
 
             <div class='input-field'>
                 <label for="headquarters">Headquarters Location</label>
-                <input id="headquarters" th:field="*{headquarters}" type="text" name="headquarters" placeholder="Headquarters Location">
+                <input id="headquarters" th:field="*{headquarters}" th:errorclass="error" type="text" name="headquarters" placeholder="Headquarters Location">
+                <p class="error-text" th:if="${#fields.hasErrors('headquarters')}" th:errors="*{headquarters}">Error</p>
             </div>
 
             <div class='input-field'>
                 <label for="founding-year">Founding Year</label>
-                <input id="founding-year" th:field="*{foundingYear}" type="number" name="founding-year" placeholder="Founding Year">
+                <input id="founding-year" th:field="*{foundingYear}" th:errorclass="error" type="number" name="founding-year" placeholder="Founding Year">
+                <p class="error-text" th:if="${#fields.hasErrors('foundingYear')}" th:errors="*{foundingYear}">Error</p>
             </div>
 
             <div class='input-field'>
@@ -42,8 +45,10 @@
                         id='image'
                         name='image'
                         th:field='*{image}'
+                        th:errorclass="error"
                         type="file"
                 />
+                <p class="error-text" th:if="${#fields.hasErrors('image')}" th:errors="*{image}">Error</p>
             </div>
             <button type='submit'>Add Organizer</button>
         </form>

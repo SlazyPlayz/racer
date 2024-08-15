@@ -1,7 +1,10 @@
 package bg.softuni.exam_retake_racer.controller;
 
+import bg.softuni.exam_retake_racer.config.AppConfiguration;
 import bg.softuni.exam_retake_racer.model.dto.user.UserDTO;
 import bg.softuni.exam_retake_racer.service.CloudinaryService;
+import bg.softuni.exam_retake_racer.service.RaceService;
+import bg.softuni.exam_retake_racer.service.TrackService;
 import bg.softuni.exam_retake_racer.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +38,15 @@ class UserControllerTest {
     @MockBean
     private UserService userService;
 
+    @MockBean
+    private AppConfiguration appConfiguration;
+
+    @MockBean
+    private TrackService trackService;
+
+    @MockBean
+    private RaceService raceService;
+
     @Test
     void testRegistration() throws Exception {
 
@@ -54,8 +66,8 @@ class UserControllerTest {
                         .param("lastName", "Petrov")
                         .param("username", "pesho")
                         .param("email", "pesho@email.net")
-                        .param("password", "1234")
-                        .param("confirmPassword", "1234")
+                        .param("password", "parola1234")
+                        .param("confirmPassword", "parola1234")
                         .param("bio", "I am the best")
                         .with(csrf())
         ).andExpect(status().is3xxRedirection());

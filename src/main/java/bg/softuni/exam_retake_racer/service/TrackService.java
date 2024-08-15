@@ -12,4 +12,6 @@ public interface TrackService {
     TrackDTO getTrackBySearchName(String name);
 
     Set<TrackDTO> getAllTracks();
+
+    Set<String> getPhotoIds();
 }

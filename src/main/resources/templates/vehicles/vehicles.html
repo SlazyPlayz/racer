@@ -11,18 +11,19 @@
     <header th:insert="~{/fragments/navigation}"></header>
 
     <section class="search-container">
-        <form th:method="get" th:action="@{/tracks.html/search}" class="search-form">
+        <form th:method="get" th:action="@{/vehicles/search}" class="search-form">
             <label>
-                <input type="text" name="search" placeholder="Search Races" />
+                <input type="text" name="search" placeholder="Search Vehicles" />
             </label>
         </form>
         <div class="add-item-container">
-            <a th:href="@{/tracks/add}" class="add-btn">Add Track</a>
+            <a th:href="@{/vehicles/add}" class="add-btn">Add Vehicle</a>
+            <a th:href="@{/manufacturers/add}" class="add-btn">Add Manufacturer</a>
         </div>
     </section>
 
     <section class="search-results" th:each="vehicle : ${vehicles}">
-        <article th:replace="~{fragments/display} :: searchResult(primary = |${vehicle.make} ${vehicle.model}|, secondary = ${vehicle.horsepower}, imageUrl = 'none', type = 'vehicles')"></article>
+        <article th:replace="~{fragments/display :: searchResult(primary = |${vehicle.make} ${vehicle.model}|, secondary = ${vehicle.horsepower}, imageUrl = 'none', link = |/vehicles/${#strings.toLowerCase(#strings.replace(vehicle.model, ' ', '-'))}|)}"></article>
     </section>
 </body>
 </html>

@@ -33,11 +33,15 @@ public class VehicleServiceImpl implements VehicleService {
         String make = vehicleDTO.getMake();
         String model = vehicleDTO.getModel();
 
+
         if(vehicleRepository.findByMakeAndModel(make, model).isPresent()) {
             throw new VehicleAlreadyExists(make, model);
         }
 
-        vehicleRepository.save(modelMapper.map(vehicleDTO, VehicleEntity.class));
+        VehicleEntity entity = modelMapper.map(vehicleDTO, VehicleEntity.class);
+        entity.setSearchName(toSearchName(model));
+
+        vehicleRepository.save(entity);
     }
 
     @Override
@@ -47,6 +51,15 @@ public class VehicleServiceImpl implements VehicleService {
                 .stream()
                 .map(vehicleEntity -> modelMapper.map(vehicleEntity, VehicleDTO.class))
                 .collect(Collectors.toSet());
+    }
+
+    @Override
+    public VehicleDTO getVehicleBySearchName(String name) {
+        return vehicleRepository
+                .findVehicleBySearchName(name)
+                .map(vehicleEntity -> modelMapper.map(vehicleEntity, VehicleDTO.class))
+                .orElseThrow(() -> new VehicleNotFoundException(name));
+
     }
 
     @Override
@@ -72,5 +85,10 @@ public class VehicleServiceImpl implements VehicleService {
                 .findManufacturerByName(make)
                 .map(ManufacturerEntity::getImageUrl)
                 .orElseThrow(() -> new ManufacturerNotFoundException(make));
+    }
+
+
+    private String toSearchName(String model) {
+        return model.replace(" ", "-").toLowerCase();
     }
 }

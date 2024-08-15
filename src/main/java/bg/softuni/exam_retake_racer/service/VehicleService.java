@@ -10,6 +10,8 @@ public interface VehicleService {
 
     Set<VehicleDTO> getVehicleByMake(String make);
 
+    VehicleDTO getVehicleBySearchName(String name);
+
     VehicleDTO getVehicleByMakeAndModel(String make, String model);
 
     Set<VehicleDTO> getAll();

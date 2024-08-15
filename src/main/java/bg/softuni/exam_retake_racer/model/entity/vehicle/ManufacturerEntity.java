@@ -32,6 +32,9 @@ public class ManufacturerEntity extends BaseEntity {
     @Column(name = "image_url")
     private String imageUrl;
 
+    @Column(name = "search_name")
+    private String searchName;
+
     public ManufacturerEntity() {
     }
 
@@ -68,6 +71,15 @@ public class ManufacturerEntity extends BaseEntity {
 
     public ManufacturerEntity setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+        return this;
+    }
+
+    public String getSearchName() {
+        return searchName;
+    }
+
+    public ManufacturerEntity setSearchName(String searchName) {
+        this.searchName = searchName;
         return this;
     }
 }

@@ -5,49 +5,63 @@
     <title>Add race</title>
     <link rel="icon" type="image/png" th:href="@{https://img.icons8.com/ios-filled/100/tony-kart.png}" />
     <link rel="stylesheet" th:href="@{/css/defaults.css}">
-    <link rel="stylesheet" th:href="@{/css/user-input.css}">
+    <link rel="stylesheet" th:href="@{/css/input.css}">
+    <link rel="stylesheet" th:href="@{/css/add-item.css}">
 </head>
 <body>
     <header th:insert="~{/fragments/navigation}"></header>
 
-    <form th:method="post" th:action="@{/races/add}" th:object="${raceAddBindingModel}">
+    <div class="input-container">
+    <form class="input-form" th:method="post" th:action="@{/races/add}" th:object="${raceAddBindingModel}">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
         <div class='input-field'>
             <label for="name">Race Name</label>
             <input id="name" th:field="*{name}" type="text" name="name" placeholder="Race Name">
+            <p class="error-text" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</p>
         </div>
 
         <div class='input-field'>
             <label for="type">Race Type</label>
             <input id="type" th:field="*{type}" type="text" name="type" placeholder="Race Type">
+            <p class="error-text" th:if="${#fields.hasErrors('type')}" th:errors="*{type}">Error</p>
         </div>
 
         <div class='input-field'>
             <label for="track">Track Name</label>
             <input id="track" th:field="*{track}" type="text" name="track" placeholder="Name of Track">
+            <p class="error-text" th:if="${#fields.hasErrors('track')}" th:errors="*{track}">Error</p>
         </div>
 
         <div class='input-field'>
             <label for="prize">Winning Prize</label>
             <input id="prize" th:field="*{prize}" type="text" name="prize" placeholder="Winning Prize">
+            <p class="error-text" th:if="${#fields.hasErrors('prize')}" th:errors="*{prize}">Error</p>
         </div>
 
         <div class='input-field'>
             <label for="organizer">Name of Organizer</label>
             <input id="organizer" th:field="*{organizer}" type="text" name="organizer" placeholder="Name of Organizer">
+            <p class="error-text" th:if="${#fields.hasErrors('organizer')}" th:errors="*{organizer}">Error</p>
         </div>
 
         <div class='input-field'>
             <label for="date">Date of Race</label>
             <input id="date" th:field="*{date}" type="date" name="date" placeholder="Date of Race">
+            <p class="error-text" th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Error</p>
         </div>
 
         <div class='input-field'>
             <label for="description">Race Description</label>
             <textarea id="description" th:field="*{description}" name="track" placeholder="Race Description"></textarea>
+            <p class="error-text" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Error</p>
         </div>
         <button type='submit'>Add Race</button>
     </form>
+    </div>
+
+    <section class="search-results" th:each="organizer : ${organizers}">
+        <article th:replace="~{fragments/display :: searchResult(primary = ${organizer.name}, secondary = ${organizer.headquarters}, imageUrl = ${organizer.imageUrl}, link = |/organizers/${#strings.toLowerCase(#strings.replace(organizer.name, ' ', '-'))}|)}"></article>
+    </section>
 </body>
 </html>

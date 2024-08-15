@@ -2,7 +2,9 @@ package bg.softuni.exam_retake_racer.controller;
 
 import bg.softuni.exam_retake_racer.model.dto.race.track.TrackAddBindingModel;
 import bg.softuni.exam_retake_racer.service.TrackService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +35,14 @@ public class TrackController {
     }
 
     @PostMapping("/add")
-    public ModelAndView addTrack(TrackAddBindingModel trackAddBindingModel) {
+    public ModelAndView addTrack(@Valid TrackAddBindingModel trackAddBindingModel, BindingResult bindingResult) {
+
+        if(bindingResult.hasErrors()) {
+            ModelAndView modelAndView = new ModelAndView("/races/add-track");
+            modelAndView.addObject("trackAddBindingModel", new TrackAddBindingModel());
+            return modelAndView;
+        }
+
         trackService.addTrack(trackAddBindingModel);
         return new ModelAndView("redirect:/tracks");
     }

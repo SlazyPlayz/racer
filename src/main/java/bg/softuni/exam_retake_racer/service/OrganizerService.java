@@ -14,7 +14,11 @@ public interface OrganizerService {
 
     OrganizerDTO getOrganizerByName(String name);
 
+    OrganizerDTO getOrganizerBySearchName(String name);
+
     Set<OrganizerDTO> getAllOrganizers();
 
     Set<String> getAllOrganizerNames();
+
+    Set<String> getPhotoIds();
 }

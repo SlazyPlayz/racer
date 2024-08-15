@@ -16,4 +16,6 @@ public interface UserService {
     void changeUsername(UsernameChangeDTO usernameChangeDTO);
 
     Set<DisplayRaceDTO> getRaces();
+
+    Set<String> getPhotoIds();
 }

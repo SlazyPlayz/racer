@@ -35,13 +35,23 @@ public class OrganizerServiceImpl implements OrganizerService {
     @Override
     public void addOrganizer(OrganizerAddBindingModel organizerAddBindingModel) {
 
-        OrganizerEntity entity = modelMapper.map(organizerAddBindingModel, OrganizerEntity.class);
+        String name = organizerAddBindingModel.getName();
+
+        if (organizerRepository.findOrganizerByName(name).isPresent()) {
+            throw new OrganizerWithNameNotFoundException(name);
+        }
+
+        OrganizerEntity entity = new OrganizerEntity()
+                .setName(name)
+                .setHeadquarters(organizerAddBindingModel.getHeadquarters())
+                .setFoundingYear(organizerAddBindingModel.getFoundingYear())
+                .setSearchName(toSearchName(name));
 
         try {
             entity
                     .setImageUrl(cloudinaryService
                             .uploadFile(organizerAddBindingModel.getImage(),
-                                    "organizers/" + organizerAddBindingModel.getName()));
+                                    "organizers/" + name));
         } catch (IOException e) {
             throw new ImageUploadException();
         }
@@ -67,6 +77,14 @@ public class OrganizerServiceImpl implements OrganizerService {
     }
 
     @Override
+    public OrganizerDTO getOrganizerBySearchName(String name) {
+        return modelMapper.map(organizerRepository
+                .findOrganizerBySearchName(name)
+                .orElseThrow(() -> new OrganizerWithNameNotFoundException(name)),
+                OrganizerDTO.class);
+    }
+
+    @Override
     public Set<OrganizerDTO> getAllOrganizers() {
         return organizerRepository
                 .findAll()
@@ -83,5 +101,18 @@ public class OrganizerServiceImpl implements OrganizerService {
                 .stream()
                 .map(OrganizerEntity::getName)
                 .collect(Collectors.toSet());
+    }
+
+    @Override
+    public Set<String> getPhotoIds() {
+        return organizerRepository
+                .findAll()
+                .stream()
+                .map(OrganizerEntity::getImageUrl)
+                .collect(Collectors.toSet());
+    }
+
+    private String toSearchName(String name) {
+        return name.replace(" ", "-").toLowerCase();
     }
 }

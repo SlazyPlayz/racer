@@ -32,6 +32,9 @@ public class VehicleEntity extends BaseEntity {
     @Min(value = 0, message = "Horsepower must be a positive number")
     private Integer horsepower;
 
+    @Column(name = "search_name")
+    private String searchName;
+
     public VehicleEntity() {
     }
 
@@ -68,6 +71,15 @@ public class VehicleEntity extends BaseEntity {
 
     public VehicleEntity setHorsepower(Integer horsepower) {
         this.horsepower = horsepower;
+        return this;
+    }
+
+    public String getSearchName() {
+        return searchName;
+    }
+
+    public VehicleEntity setSearchName(String searchName) {
+        this.searchName = searchName;
         return this;
     }
 }

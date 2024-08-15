@@ -18,3 +18,7 @@ cloudinary:
   api:
     key: ${CLOUDINARY_API_KEY:}
     secret: ${CLOUDINARY_API_SECRET:}
+
+racer:
+  remember-me:
+    key: ${REMEMBER_ME_KEY:topsecret}

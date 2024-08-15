@@ -56,6 +56,15 @@ public class TrackServiceImpl implements TrackService {
         return trackRepository.findAll().stream().map(trackEntity -> modelMapper.map(trackEntity, TrackDTO.class)).collect(Collectors.toSet());
     }
 
+    @Override
+    public Set<String> getPhotoIds() {
+        return trackRepository
+                .findAll()
+                .stream()
+                .map(TrackEntity::getImageUrl)
+                .collect(Collectors.toSet());
+    }
+
     private String toSearchName(String name) {
         return name.replace(" ", "-").toLowerCase();
     }

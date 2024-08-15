@@ -113,6 +113,15 @@ public class UserServiceImpl implements UserService {
                 .collect(Collectors.toSet());
     }
 
+    @Override
+    public Set<String> getPhotoIds() {
+        return userRepository
+                .findAll()
+                .stream()
+                .map(UserEntity::getImageUrl)
+                .collect(Collectors.toSet());
+    }
+
     private UserDTO map(UserEntity entity) {
         return modelMapper.map(entity, UserDTO.class);
     }

@@ -16,27 +16,16 @@
                 <img
                         src='https://c.stocksy.com/a/ej9A00/z9/2420706.jpg'
                         alt='Race Track'
+                        id='home-image'
                         class='last-race-img'
                 />
             </section>
-            <section class='last-race-leaderboard'>
-                <article>This is a test</article>
-                <article>This is a test</article>
-                <article>This is a test</article>
-                <article>This is a test</article>
-                <article>This is a test</article>
-            </section>
-            <section class='upcoming-races'>
+            <section class='upcoming-races' id="upcoming-races">
                 <h3>Upcoming Races</h3>
-                <article th:each="race : ${races}">
-                    <h6>
-                        <th:block th:text="${race.name}">Race name</th:block>
-                        <span th:text="(${race.track})">(Race Track)</span>
-                    </h6>
-                    <p th:text="${race.organizer}">Organizer</p>
-                </article>
             </section>
         </div>
     </main>
+
+    <script th:src="@{/js/index.js}"></script>
 </body>
 </html>

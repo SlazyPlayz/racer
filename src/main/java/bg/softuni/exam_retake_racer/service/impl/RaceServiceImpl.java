@@ -3,8 +3,8 @@ package bg.softuni.exam_retake_racer.service.impl;
 import bg.softuni.exam_retake_racer.exceptions.*;
 import bg.softuni.exam_retake_racer.model.dto.race.RaceAddBindingModel;
 import bg.softuni.exam_retake_racer.model.dto.race.RaceDTO;
-import bg.softuni.exam_retake_racer.model.dto.user.ParticipantDTO;
-import bg.softuni.exam_retake_racer.model.dto.user.UserDisplayDTO;
+import bg.softuni.exam_retake_racer.model.dto.user.participant.ParticipantAddBindingModel;
+import bg.softuni.exam_retake_racer.model.dto.user.participant.ParticipantDTO;
 import bg.softuni.exam_retake_racer.model.dto.vehicle.VehicleDTO;
 import bg.softuni.exam_retake_racer.model.entity.race.RaceEntity;
 import bg.softuni.exam_retake_racer.model.entity.race.TrackEntity;
@@ -18,6 +18,7 @@ import bg.softuni.exam_retake_racer.util.AuthenticationFacade;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -113,6 +114,16 @@ public class RaceServiceImpl implements RaceService {
     }
 
     @Override
+    public Set<RaceDTO> getUpcomingRaces() {
+        return raceRepository
+                .findAllByDateAfter(new Date())
+                .stream()
+                .map(this::toDto)
+                .filter(raceDTO -> raceDTO.getParticipants().size() < 20)
+                .collect(Collectors.toSet());
+    }
+
+    @Override
     public Set<ParticipantDTO> getParticipants(String name) {
         return raceRepository
                 .findBySearchName(name)
@@ -132,16 +143,43 @@ public class RaceServiceImpl implements RaceService {
                 .collect(Collectors.toSet());
     }
 
+    @Override
+    public void addParticipant(String name, ParticipantAddBindingModel participantAddBindingModel) {
+
+        String username = userService.getUser().getUsername();
+
+        RaceEntity raceEntity = raceRepository
+                .findBySearchName(toSearchName(name))
+                .orElseThrow(() -> new RaceNotFoundException(name));
+
+        UserEntity userEntity = userRepository
+                .findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException(username));
+
+        VehicleEntity vehicleEntity = vehicleRepository
+                .findByMakeAndModel(participantAddBindingModel.getVehicleMake(), participantAddBindingModel.getVehicleModel())
+                .orElseThrow(() -> new VehicleNotFoundException(participantAddBindingModel.getVehicleMake(), participantAddBindingModel.getVehicleModel()));
+
+        ParticipantEntity participantEntity = participantRepository
+                .findByUserAndVehicle(userEntity, vehicleEntity)
+                .orElseThrow(() -> new ParticipantNotFoundException(username, participantAddBindingModel.getVehicleMake() + " " + participantAddBindingModel.getVehicleModel()));
+
+        Set<ParticipantEntity> participants = raceEntity.getParticipants();
+        participants.add(participantEntity);
+        raceEntity.setParticipants(participants);
+        raceRepository.save(raceEntity);
+    }
+
     private String toSearchName(String name) {
         return name.replace(" ", "-").toLowerCase();
     }
 
     private RaceDTO toDto(RaceEntity raceEntity) {
         RaceDTO raceDTO = modelMapper.map(raceEntity, RaceDTO.class);
-        Set<UserDisplayDTO> participants = raceEntity
+        Set<ParticipantDTO> participants = raceEntity
                 .getParticipants()
                 .stream()
-                .map(participant -> modelMapper.map(participant, UserDisplayDTO.class))
+                .map(participant -> modelMapper.map(participant, ParticipantDTO.class))
                 .collect(Collectors.toSet());
         raceDTO.setParticipants(participants);
         return raceDTO;

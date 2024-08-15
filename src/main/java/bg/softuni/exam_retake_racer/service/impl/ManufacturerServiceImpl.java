@@ -13,6 +13,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class ManufacturerServiceImpl implements ManufacturerService {
@@ -27,6 +29,15 @@ public class ManufacturerServiceImpl implements ManufacturerService {
     }
 
     @Override
+    public Set<ManufacturerDTO> getAllManufacturers() {
+        return manufacturerRepository
+                .findAll()
+                .stream()
+                .map(manufacturerEntity -> modelMapper.map(manufacturerEntity, ManufacturerDTO.class))
+                .collect(Collectors.toSet());
+    }
+
+    @Override
     public void addManufacturer(ManufacturerAddBindingModel manufacturerAddBindingModel) {
 
         String name = manufacturerAddBindingModel.getName();
@@ -35,13 +46,18 @@ public class ManufacturerServiceImpl implements ManufacturerService {
             throw new ManufacturerAlreadyExistsException(name);
         }
 
+        ManufacturerEntity manufacturer = modelMapper.map(manufacturerAddBindingModel, ManufacturerEntity.class);
+
+        manufacturer.setSearchName(toSearchName(name));
+
         try {
-            cloudinaryService.uploadFile(manufacturerAddBindingModel.getImage(), "/manufacturers/" + name);
+            String imageUrl = cloudinaryService.uploadFile(manufacturerAddBindingModel.getImage(), "/manufacturers/" + name);
+            manufacturer.setImageUrl(imageUrl);
         } catch (IOException e) {
             throw new ImageUploadException();
         }
 
-        manufacturerRepository.save(modelMapper.map(manufacturerAddBindingModel, ManufacturerEntity.class));
+        manufacturerRepository.save(manufacturer);
     }
 
     @Override
@@ -54,9 +70,30 @@ public class ManufacturerServiceImpl implements ManufacturerService {
         return modelMapper.map(getManufacturerEntityByName(name), ManufacturerDTO.class);
     }
 
+    @Override
+    public ManufacturerDTO getManufacturerBySearchName(String name) {
+        return manufacturerRepository
+                .findManufacturerBySearchName(name)
+                .map(manufacturerEntity -> modelMapper.map(manufacturerEntity, ManufacturerDTO.class))
+                .orElseThrow(() -> new ManufacturerNotFoundException(name));
+    }
+
+    @Override
+    public Set<String> getPhotoIds() {
+        return manufacturerRepository
+                .findAll()
+                .stream()
+                .map(ManufacturerEntity::getImageUrl)
+                .collect(Collectors.toSet());
+    }
+
     private ManufacturerEntity getManufacturerEntityByName(String name) {
         return manufacturerRepository
                 .findManufacturerByName(name)
                 .orElseThrow(() -> new ManufacturerNotFoundException(name));
+    }
+
+    private String toSearchName(String name) {
+        return name.replace(" ", "-").toLowerCase();
     }
 }

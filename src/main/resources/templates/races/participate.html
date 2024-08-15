@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Participate</title>
+    <link rel="icon" type="image/png" th:href="@{https://img.icons8.com/ios-filled/100/tony-kart.png}" />
+    <link rel="stylesheet" th:href="@{/css/defaults.css}">
+    <link rel="stylesheet" th:href="@{/css/input.css}">
+</head>
+<body>
+    <header th:insert="~{/fragments/navigation}"></header>
+    <div class='input-container'>
+      <form
+              th:method="post"
+              th:action="@{|/races/participate/${raceName}|}"
+              th:object="${participantAddBindingModel}"
+              id='login-form'
+              class='input-form'
+      >
+        <div class='input-field'>
+          <label for='vehicleMake'>Vehicle Make</label>
+          <input
+                  id='vehicleMake'
+                  name="vehicleMake"
+                  th:field="*{vehicleMake}"
+                  placeholder='Vehicle Make'
+          />
+          <p class="error-text" th:if="${#fields.hasErrors('vehicleMake')}" th:errors="*{vehicleMake}">Error</p>
+        </div>
+        <div class='input-field'>
+          <label for='vehicleModel'>Vehicle Model</label>
+          <input
+                  id='vehicleModel'
+                  name="vehicleModel"
+                  th:field="*{vehicleModel}"
+                  placeholder='Vehicle Model'
+          />
+          <p class="error-text" th:if="${#fields.hasErrors('vehicleModel')}" th:errors="*{vehicleModel}">Error</p>
+        </div>
+        <button type="submit">Participate</button>
+      </form>
+    </div>
+</body>
+</html>

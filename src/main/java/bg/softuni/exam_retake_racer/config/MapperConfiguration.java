@@ -7,7 +7,7 @@ import bg.softuni.exam_retake_racer.model.dto.race.organizer.OrganizerAddBinding
 import bg.softuni.exam_retake_racer.model.dto.race.organizer.OrganizerDTO;
 import bg.softuni.exam_retake_racer.model.dto.race.track.TrackAddBindingModel;
 import bg.softuni.exam_retake_racer.model.dto.race.track.TrackDTO;
-import bg.softuni.exam_retake_racer.model.dto.user.ParticipantDTO;
+import bg.softuni.exam_retake_racer.model.dto.user.participant.ParticipantDTO;
 import bg.softuni.exam_retake_racer.model.dto.user.UserDTO;
 import bg.softuni.exam_retake_racer.model.dto.user.UserRegisterBindingModel;
 import bg.softuni.exam_retake_racer.model.dto.vehicle.VehicleDTO;
@@ -23,9 +23,6 @@ import bg.softuni.exam_retake_racer.model.entity.vehicle.VehicleEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.util.Date;
 
 @Configuration
 public class MapperConfiguration {
@@ -212,7 +209,7 @@ public class MapperConfiguration {
                         RaceDTO::setPrize
                 ))
                 .addMappings(mapper -> mapper.map(
-                        RaceEntity::getOrganizer,
+                        entity -> entity.getOrganizer().getName(),
                         RaceDTO::setOrganizer
                 ));
 

@@ -11,4 +11,6 @@ import java.util.UUID;
 public interface ManufacturerRepository extends JpaRepository<ManufacturerEntity, UUID> {
 
     Optional<ManufacturerEntity> findManufacturerByName(String name);
+
+    Optional<ManufacturerEntity> findManufacturerBySearchName(String name);
 }

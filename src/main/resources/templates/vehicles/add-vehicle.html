@@ -5,34 +5,46 @@
     <title>Add vehicle</title>
     <link rel="icon" type="image/png" th:href="@{https://img.icons8.com/ios-filled/100/tony-kart.png}" />
     <link rel="stylesheet" th:href="@{/css/defaults.css}">
+    <link rel="stylesheet" th:href="@{/css/input.css}">
+    <link rel="stylesheet" th:href="@{/css/add-item.css}">
 </head>
 <body>
     <header th:insert="~{/fragments/navigation}"></header>
 
-    <form th:method="post" th:action="@{/manufacturers/add}" th:object="${vehicle}">
+    <div class="input-container">
+    <form class="input-form" th:method="post" th:action="@{/vehicles/add}" th:object="${vehicle}">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
         <div class='input-field'>
             <label for="make">Vehicle Make</label>
             <input id="make" th:field="*{make}" type="text" name="make" placeholder="Vehicle Make">
+            <p class="error-text" th:if="${#fields.hasErrors('make')}" th:errors="*{make}">Error</p>
         </div>
 
         <div class='input-field'>
             <label for="model">Vehicle Model</label>
             <input id="model" th:field="*{model}" type="text" name="model" placeholder="Vehicle Model">
+            <p class="error-text" th:if="${#fields.hasErrors('model')}" th:errors="*{model}">Error</p>
         </div>
 
         <div class="input-field">
             <label for="horsepower">Horsepower</label>
-            <input id="horsepower" th:field="*{horsepower}" type="text" name="horsepower">
+            <input id="horsepower" th:field="*{horsepower}" type="text" name="horsepower" placeholder="Horsepower">
+            <p class="error-text" th:if="${#fields.hasErrors('horsepower')}" th:errors="*{horsepower}">Error</p>
         </div>
 
         <div class='input-field'>
             <label for="year">Year of Production</label>
             <input id="year" th:field="*{year}" type="number" name="year" placeholder="Year of Production">
+            <p class="error-text" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Error</p>
         </div>
 
-        <button type='submit'>Add Manufacturer</button>
+        <button type='submit'>Add Vehicle</button>
     </form>
+    </div>
+
+    <section class="search-results" th:each="manufacturer : ${manufacturers}">
+        <article th:replace="~{fragments/display :: searchResult(primary = ${manufacturer.name}, secondary = ${manufacturer.headquarters}, imageUrl = ${manufacturer.imageUrl}, link = |/manufacturers/${#strings.toLowerCase(#strings.replace(manufacturer.name, ' ', '-'))}|)}"></article>
+    </section>
 </body>
 </html>

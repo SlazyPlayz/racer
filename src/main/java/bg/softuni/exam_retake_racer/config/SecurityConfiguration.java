@@ -3,6 +3,8 @@ package bg.softuni.exam_retake_racer.config;
 import bg.softuni.exam_retake_racer.model.enums.Role;
 import bg.softuni.exam_retake_racer.repository.UserRepository;
 import bg.softuni.exam_retake_racer.service.impl.RacerUserDetailsServiceImpl;
+import bg.softuni.exam_retake_racer.util.RateLimitFilter;
+import bg.softuni.exam_retake_racer.util.RequestRateLimiter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -14,16 +16,21 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+
+import java.util.concurrent.TimeUnit;
 
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfiguration {
 
     private final String rememberMeKey;
+    private final RateLimitFilter rateLimitFilter;
 
-    public SecurityConfiguration(@Value("${racer.remember-me.key}") String rememberMeKey) {
+    public SecurityConfiguration(@Value("${racer.remember-me.key}") String rememberMeKey, RateLimitFilter rateLimitFilter) {
         this.rememberMeKey = rememberMeKey;
+        this.rateLimitFilter = rateLimitFilter;
     }
 
     @Bean
@@ -41,7 +48,7 @@ public class SecurityConfiguration {
                                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                                 // Allow anyone to see the home page, registration page and login form
                                 .requestMatchers("/").permitAll()
-                                .requestMatchers("/users/login", "/users/register").permitAll()
+                                .requestMatchers("/users/login", "/users/register", "/users/login-error").permitAll()
                                 .requestMatchers("/users/profile", "/users/edit").authenticated()
                                 .requestMatchers("/races", "/races/add", "/races/**").permitAll()
                                 .requestMatchers("/tracks", "/tracks/add", "/tracks/**").permitAll()
@@ -74,7 +81,7 @@ public class SecurityConfiguration {
                                 .logoutSuccessUrl("/")
                                 // invalidate the HTTP session
                                 .invalidateHttpSession(true)
-                )
+                ).addFilterBefore(rateLimitFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 

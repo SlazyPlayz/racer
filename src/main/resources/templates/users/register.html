@@ -5,7 +5,7 @@
     <title>Racer</title>
     <link rel="icon" type="image/png" th:href="@{https://img.icons8.com/ios-filled/100/tony-kart.png}" />
     <link rel="stylesheet" th:href="@{/css/defaults.css}">
-    <link rel="stylesheet" th:href="@{/css/user-input.css}">
+    <link rel="stylesheet" th:href="@{/css/input.css}">
 </head>
 <body>
 
@@ -29,6 +29,7 @@
                         th:field="*{firstName}"
                         placeholder='Enter your first name'
                 />
+                <p class="error-text" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Error</p>
             </div>
             <div class='input-field'>
                 <label for='lastName'>Last name</label>
@@ -38,6 +39,7 @@
                         th:field="*{lastName}"
                         placeholder='Enter your last name'
                 />
+                <p class="error-text" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Error</p>
             </div>
             <div class='input-field'>
                 <label for='username'>Username</label>
@@ -47,6 +49,7 @@
                         th:field="*{username}"
                         placeholder='Enter your username'
                 />
+                <p class="error-text" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Error</p>
             </div>
             <div class='input-field'>
                 <label for='email'>Email</label>
@@ -57,6 +60,7 @@
                         type='email'
                         placeholder='Enter your email'
                 />
+                <p class="error-text" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error</p>
             </div>
             <div class='input-field'>
                 <label for='password'>Password</label>
@@ -67,6 +71,7 @@
                         type="password"
                         placeholder='Enter your password'
                 />
+                <p class="error-text" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error</p>
             </div>
             <div class='input-field'>
                 <label for='confirmPassword'>Confirm Password</label>
@@ -77,6 +82,7 @@
                         type="password"
                         placeholder='Confirm your password'
                 />
+                <p class="error-text" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">Error</p>
             </div>
             <div class='input-field'>
                 <label for='image'>Confirm Password</label>
@@ -86,6 +92,7 @@
                         th:field='*{image}'
                         type="file"
                 />
+                <p class="error-text" th:if="${#fields.hasErrors('image')}" th:errors="*{image}">Error</p>
             </div>
             <div class='input-field'>
                 <label for='bio'>Bio</label>
@@ -94,8 +101,8 @@
                         name='bio'
                         th:field='*{bio}'
                         placeholder='Tell up a little about yourself'>
-
                 </textarea>
+                <p class="error-text" th:if="${#fields.hasErrors('bio')}" th:errors="*{bio}">Error</p>
             </div>
             <button type='submit'>Register</button>
         </form>

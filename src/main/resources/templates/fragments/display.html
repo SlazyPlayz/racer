@@ -5,9 +5,9 @@
   <title>Title</title>
 </head>
 <body>
-  <article class="search-result" th:fragment="searchResult(primary, secondary, imageUrl, type)">
+  <article class="search-result" th:fragment="searchResult(primary, secondary, imageUrl, link)">
     <img th:unless="${imageUrl == 'none'}" th:src="${imageUrl}" th:alt="${primary}" />
-    <h4 th:text="${primary}"><a th:unless="${type == 'null'}" th:href="@{/${type}/${#strings.toLowerCase(#strings.replace(primary, ' ', '-'))}}">Primary text</a></h4>
+    <h4><a th:unless="${link == 'none'}" th:href="@{${link}}"><th:block th:text="${primary}">Primary text</th:block></a></h4>
     <p th:text="${secondary}">Secondary text</p>
   </article>
 </body>

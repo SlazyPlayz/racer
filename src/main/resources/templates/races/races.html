@@ -23,7 +23,7 @@
     </section>
 
     <section class="search-results" th:each="race : ${races}">
-        <article th:replace="~{fragments/display :: searchResult(primary = ${race.name}, secondary = ${race.track}, imageUrl = ${race.imageUrl}, type = 'races')}"></article>
+        <article th:replace="~{fragments/display :: searchResult(primary = ${race.name}, secondary = ${race.track}, imageUrl = ${race.imageUrl}, link = |/races/${#strings.toLowerCase(#strings.replace(race.name, ' ', '-'))}|)}"></article>
     </section>
 </body>
 </html>

@@ -7,7 +7,9 @@
     <link rel="stylesheet" th:href="@{/css/defaults.css}">
     <link rel="stylesheet" th:href="@{/css/info.css}">
     <link rel="stylesheet" th:href="@{/css/display.css}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <link rel="stylesheet" th:href="@{/css/input.css}">
+    <link rel="stylesheet" th:href="@{/css/profile.css}">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css}" />
 </head>
 <body>
     <header th:insert="~{/fragments/navigation}"></header>
@@ -26,6 +28,7 @@
                         <label>
                             <input class="input-field" type="text" th:field="*{newUsername}" th:value="${user.username}">
                         </label>
+                        <p class="error-text" th:if="${#fields.hasErrors('newUsername')}" th:errors="*{newUsername}">Error</p>
                         <button class="empty" type="submit"><i class="fa-solid fa-check fa-xl" style="color: white"></i></button>
                     </form>
                     <p class='additional-info' id="username-container">
@@ -43,7 +46,7 @@
     </main>
 
     <section class="search-results" th:each="race : ${races}">
-        <article th:replace="~{fragments/display :: searchResult(primary = ${race.name}, secondary = ${race.track}, imageUrl = ${race.imageUrl}, type = 'races')}"></article>
+        <article th:replace="~{fragments/display :: searchResult(primary = ${race.name}, secondary = ${race.track}, imageUrl = ${race.imageUrl}, link = |/races/${#strings.toLowerCase(#strings.replace(race.name, ' ', '-'))}|)}"></article>
     </section>
 
     <script src="/js/profile.js"></script>
